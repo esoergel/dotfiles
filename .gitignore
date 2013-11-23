@@ -1,0 +1,14 @@
+local*
+venv
+node_modules/
+mediafiles/
+.tags
+tags
+.tags_sorted_by_file
+update_code.sh
+celerybeat-schedule
+
+# extra files
+*.pyc
+*~
+*.script.py
