@@ -1,3 +1,7 @@
+# for config options, check out:
+# https://www.kernel.org/pub/software/scm/git/docs/git-config.html
+# https://www.kernel.org/pub/software/scm/git/docs/git-whatchanged.html
+# https://www.kernel.org/pub/software/scm/git/docs/git-log.html
 [user]
 	name = Ethan Soergel
 	email = esoergel@gmail.com
@@ -7,6 +11,7 @@
 	st = status
 	su = submodule update
 
+	# ETHAN, add something for log --graph
 	# LOG SHORTCUTS
 	# show commits not on master
 	lnm = log HEAD --not master
@@ -15,35 +20,9 @@
 	# attributes: bold, dim, ul, blink and reverse.
 
 	# show log listing files changed
-	ls = log --stat --pretty=format:"\
-%C(magenta)%ad\\ \
-%C(blue)[%cn]\\ \
-%C(green)%h\\ \
-%Cred%d\\ \
-%n\
-%C(yellow)%s\\ \
-%n\
-" --decorate --date=short
-	;lsn = !git ls HEAD --not   # this breaks autocompletion :(
-	lsn = log --stat --pretty=format:"\
-%C(magenta)%ad\\ \
-%C(blue)[%cn]\\ \
-%C(green)%h\\ \
-%Cred%d\\ \
-%n\
-%C(yellow)%s\\ \
-%n\
-" --decorate --date=short HEAD --not
-	;lsnm = !git lsn master
-	lsnm = log --stat --pretty=format:"\
-%C(magenta)%ad\\ \
-%C(blue)[%cn]\\ \
-%C(green)%h\\ \
-%Cred%d\\ \
-%n\
-%C(yellow)%s\\ \
-%n\
-" --decorate --date=short HEAD --not master
+	ls = log --stat
+	lsn = log --stat HEAD --not
+	lsnm = log --stat HEAD --not master
 
 	# from mwhite's gitconf:
 	#show log with full diffs
@@ -55,6 +34,22 @@
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	# list aliases
 	la = "!git config -l | grep alias | cut -c 7-"
+[pretty]
+	cute = "\
+%n\
+%C(magenta)%ad \
+%C(blue)[%an] \
+%C(green)%h \
+%Cred%d \
+%n\
+%C(yellow)%s \
+"
+[format]
+	pretty = cute
+[log]
+	# relative, local, default, raw, iso, rfc, short
+	decorate = short
+	date = short
 [core]
 	editor = vim
 	excludesfile = /home/ethan/.gitignore
