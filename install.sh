@@ -7,7 +7,7 @@ declare -A exclude
 
 # list of files to exclude
 for file in \
-    "." ".." ".git" "ignore" "install.sh"
+    "." ".." ".git" "ignore" "install.sh" "README.md"
 do
     exclude[$HOME/dotfiles/$file]=1
 done
