@@ -81,8 +81,15 @@ colo seoul256
 " Mappings
 " ========
 map <leader>v :vsplit<CR>
+map <leader>s :split<CR>
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
+
+map <leader>ww :wincmd w<CR>
+map <leader>wh :wincmd h<CR>
+map <leader>wj :wincmd j<CR>
+map <leader>wk :wincmd k<CR>
+map <leader>wl :wincmd l<CR>
 
 
 " Settings
@@ -92,6 +99,7 @@ if has('mouse')
 endif
 
 set number                 " show line numbers
+set ignorecase
 set smartcase              " Make searches case-sensitive iff search is mixed case
 set showbreak=>>>
 set linebreak
