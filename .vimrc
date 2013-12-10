@@ -66,6 +66,8 @@ Bundle 'junegunn/seoul256.vim'
 let g:seoul256_background = 233
 colo seoul256
 
+Bundle 'majutsushi/tagbar'
+
 
 "
 " Bundle commands
@@ -84,6 +86,7 @@ map <leader>v :vsplit<CR>
 map <leader>s :split<CR>
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
+map <leader>t :CtrlPTag<CR>
 
 map <leader>ww :wincmd w<CR>
 map <leader>wh :wincmd h<CR>
@@ -107,7 +110,7 @@ set autoread               " Read any changes on disk if not altered in vim
 
 set whichwrap+=<,>,h,l,[,]
 set hlsearch               " highlight searches
-set nohlsearch             " Don't continue to highlight searched phrases.
+" set nohlsearch             " Don't continue to highlight searched phrases.
 set incsearch              " But do highlight as you type your search.
 set showcmd
 
