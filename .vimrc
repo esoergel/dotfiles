@@ -25,10 +25,14 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-sensible'
 Bundle 'groenewege/vim-less'
+Bundle 'Gundo'
+    let g:gundo_width = 40
+    let g:gundo_preview_height = 40
+    let g:gundo_right = 0
 
 Bundle 'rking/ag.vim'
 
-Bundle 'davidhalter/jedi-vim'
+" Bundle 'davidhalter/jedi-vim'
 " Don't popup docstring window
 autocmd FileType python setlocal completeopt-=preview
 
@@ -84,15 +88,12 @@ Bundle 'majutsushi/tagbar'
 " ========
 map <leader>v :vsplit<CR>
 map <leader>s :split<CR>
+map <leader>w <C-w>
+
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
 map <leader>t :CtrlPTag<CR>
-
-map <leader>ww :wincmd w<CR>
-map <leader>wh :wincmd h<CR>
-map <leader>wj :wincmd j<CR>
-map <leader>wk :wincmd k<CR>
-map <leader>wl :wincmd l<CR>
+map <leader>g :GundoToggle<CR>
 
 
 " Settings
