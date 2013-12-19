@@ -86,12 +86,16 @@ Bundle 'majutsushi/tagbar'
 
 " Mappings
 " ========
+let mapleader=" "
+
 map <leader>v :vsplit<CR>
 map <leader>s :split<CR>
 map <leader>w <C-w>
+map <leader>* oprint "*"*40<C-[>
 
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
+map <leader>p :CtrlP<CR>
 map <leader>t :CtrlPTag<CR>
 map <leader>g :GundoToggle<CR>
 
