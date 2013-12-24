@@ -6,6 +6,10 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" this  a random sentence.
+" def myfn(self, arg):
+"     if a == 3 or 5 < 6:
+
 " http://www.reddit.com/r/vim/comments/1424b3/what_do_you_need_mostfirst_when_starting_in_a_new/
 
 " Plugins
@@ -25,12 +29,15 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-sensible'
 Bundle 'groenewege/vim-less'
+Bundle 'tpope/vim-surround'
 Bundle 'Gundo'
     let g:gundo_width = 40
     let g:gundo_preview_height = 40
     let g:gundo_right = 0
 
 Bundle 'rking/ag.vim'
+
+Bundle 'othree/html5.vim'
 
 " Bundle 'davidhalter/jedi-vim'
 " Don't popup docstring window
@@ -41,14 +48,12 @@ let g:ctrlp_root_markers=['.git/']
 
 Bundle 'scrooloose/nerdcommenter'
 let NERDCommentWholeLinesInVMode=1
+let NERDSpaceDelims=1
+let NERDRemoveExtraSpaces=1
 let g:NERDCustomDelimiters = {
-    \ 'vim': { 'left': '" '},
-    \ 'python': { 'left': '# '},
     \ 'html': {
-      \ 'left': '<!-- ', 'right': ' -->',
       \ 'leftAlt': '{# ', 'rightAlt': ' #}',
-      \ },
-    \ 'javascript': { 'left': '// '},
+      \ }
   \ }
 
 Bundle 'scrooloose/nerdtree'
@@ -59,6 +64,7 @@ let NERDTreeIgnore=[
     \ '\.pyc$',
     \ ]
 
+" NAVIGATION
 " Sublime Text style multiple selection
 Bundle 'terryma/vim-multiple-cursors'
 
@@ -92,12 +98,18 @@ map <leader>v :vsplit<CR>
 map <leader>s :split<CR>
 map <leader>w <C-w>
 map <leader>* oprint "*"*40<C-[>
+map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
 map <leader>p :CtrlP<CR>
 map <leader>t :CtrlPTag<CR>
-map <leader>g :GundoToggle<CR>
+map <leader>u :GundoToggle<CR>
+map <leader>/ <leader>c 
+
+map <leader>gb :Gblame<CR>
+map <leader>gd :Gdiff 
 
 
 " Settings
@@ -116,7 +128,10 @@ set autoread               " Read any changes on disk if not altered in vim
 set whichwrap+=<,>,h,l,[,]
 set hlsearch               " highlight searches
 " set nohlsearch             " Don't continue to highlight searched phrases.
-set incsearch              " But do highlight as you type your search.
+" temporarily turn off highlight with \
+nnoremap \ :noh<CR>
+" map <leader>/ :noh<CR>
+set incsearch              " start looking for search matches while typing
 set showcmd
 
 " set t_Co=256               " enable 256-color mode.
