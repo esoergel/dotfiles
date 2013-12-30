@@ -56,18 +56,21 @@ Bundle 'rking/ag.vim'
 " Sublime Text style multiple selection
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/nerdtree'
-    " Auto close NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-    let NERDTreeIgnore=[
-        \ '\~$',
-        \ '\.pyc$',
-        \ ]
+Bundle 'tpope/vim-vinegar'
+" Bundle 'scrooloose/nerdtree'
+    " " Auto close NERDTree
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    " let NERDTreeIgnore=[
+        " \ '\~$',
+        " \ '\.pyc$',
+        " \ ]
 Bundle 'kien/ctrlp.vim'
     let g:ctrlp_root_markers=['.git/']
+Bundle 'Lokaltog/vim-easymotion'
 
 
 " COLOR SCHEME
+" Bundle 'altercation/vim-colors-solarized'
 Bundle 'junegunn/seoul256.vim'
     let g:seoul256_background = 233
     colo seoul256
@@ -96,6 +99,8 @@ map <leader>v :vsplit<CR>
 map <leader>s :split<CR>
 map <leader>w <C-w>
 map <leader>* oprint "*"*40<Esc>
+map <leader>D Oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>d oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
@@ -109,6 +114,26 @@ map <leader>/ <leader>c
 map <leader>gb :Gblame<CR>
 map <leader>gd :Gdiff 
 " nnoremap <silent> <Esc> :noh<CR><Esc><Esc>
+
+" Use ranger as vim file manager
+function! Ranger()
+    " Get a temp file name without creating it
+    let tmpfile = substitute(system('mktemp -u'), '\n', '', '')
+    " Launch ranger, passing it the temp file name
+    silent exec '!RANGER_RETURN_FILE='.tmpfile.' ranger'
+    " If the temp file has been written by ranger
+    if filereadable(tmpfile)
+        " Get the selected file name from the temp file
+        let filetoedit = system('cat '.tmpfile)
+        exec 'edit '.filetoedit
+        call delete(tmpfile)
+    endif
+    redraw!
+endfunction
+
+nmap <leader>r :call Ranger()<cr>
+
+
 
 " Holy shit, this is possible??
 " <Leader>0: Run the visually selected code in python and replace it with the
@@ -124,7 +149,11 @@ endif
 set number                 " show line numbers
 set ignorecase
 set smartcase              " Make searches case-sensitive iff search is mixed case
-set showbreak=>>>
+" http://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297F
+" http://jrgraphix.net/r/Unicode/2900-297F
+" ⤇ → ⤘ ⥹ ⥤ ⤷
+set showbreak=⤇\  
+" set showbreak=>>>
 set linebreak
 set autoread               " Read any changes on disk if not altered in vim
 
