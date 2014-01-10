@@ -11,3 +11,4 @@ alias djrun="python manage.py runserver"
 # alias sublime="~/Sublime\ Text\ 2/sublime_text"
 alias hub=~/libs/hub
 alias lessc='nodejs /opt/lessc/bin/lessc'
+alias xcape=~/libs/xcape/xcape 
