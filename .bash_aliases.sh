@@ -12,3 +12,4 @@ alias djrun="python manage.py runserver"
 alias hub=~/libs/hub
 alias lessc='nodejs /opt/lessc/bin/lessc'
 alias xcape=~/libs/xcape/xcape 
+alias xinit=~/.xinit
