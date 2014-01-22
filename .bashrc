@@ -140,8 +140,3 @@ HISTSIZE=1000000
 HISTFILESIZE=1000000
 
 
-# key bindings
-if [ -f ~/.xmodmaprc ]; then
-    xmodmap ~/.xmodmaprc
-    xcape -e 'Control_L=Escape;Alt_R=Caps_Lock'
-fi

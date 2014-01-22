@@ -15,7 +15,6 @@ call vundle#rc()
 " Bundle 'vim-unimpaired'
 " Bundle 'vim-fuzzyfinder'
 " command T
-" Bundle 'scrooloose/syntastic'
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-sensible'
@@ -90,7 +89,6 @@ Bundle 'airblade/vim-gitgutter'
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 
-
 " Mappings
 " ========
 let mapleader=" "
@@ -98,11 +96,17 @@ let mapleader=" "
 map <leader>v :vsplit<CR>
 map <leader>s :split<CR>
 map <leader>w <C-w>
-map <leader>* oprint "*"*40<Esc>
+map <leader>* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
 map <leader>D Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>d oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+map <leader>% :source %<CR>
+
+" copy-paste to/from register
+map <leader>y "vy
+map <leader>p "vp
+map <leader>P "vP
 
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
@@ -161,7 +165,7 @@ set whichwrap+=<,>,h,l,[,]
 set hlsearch               " highlight searches
 " set nohlsearch             " Don't continue to highlight searched phrases.
 " temporarily turn off highlight with \
-nnoremap \ :noh<CR>
+nnoremap <silent> \ :noh<CR>
 " map <leader>/ :noh<CR>
 set incsearch              " start looking for search matches while typing
 set showcmd
@@ -187,3 +191,5 @@ set wildignore+=*.pyc
 " set hidden
 
 set showmode
+
+noh
