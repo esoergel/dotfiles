@@ -43,6 +43,8 @@ Bundle 'scrooloose/nerdcommenter'
 
 
 " CODE
+Bundle 'scrooloose/syntastic'
+    let g:syntastic_python_checkers=['pylint']
 Bundle 'othree/html5.vim'
 Bundle 'groenewege/vim-less'
 " Bundle 'davidhalter/jedi-vim'
