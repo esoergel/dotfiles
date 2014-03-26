@@ -22,6 +22,7 @@ Bundle 'tpope/vim-sensible'
 
 " EDITING
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 Bundle 'Gundo'
     let g:gundo_width = 40
     let g:gundo_preview_height = 40
@@ -44,7 +45,8 @@ Bundle 'scrooloose/nerdcommenter'
 
 " CODE
 Bundle 'scrooloose/syntastic'
-    let g:syntastic_python_checkers=['pylint']
+    let g:syntastic_python_checkers=['python']
+    " let g:syntastic_python_checkers=['pylint']
 Bundle 'othree/html5.vim'
 Bundle 'groenewege/vim-less'
 " Bundle 'davidhalter/jedi-vim'
@@ -57,6 +59,7 @@ Bundle 'rking/ag.vim'
 " Sublime Text style multiple selection
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'majutsushi/tagbar'
+    let g:tagbar_sort = 0
 Bundle 'tpope/vim-vinegar'
 " Bundle 'scrooloose/nerdtree'
     " " Auto close NERDTree
@@ -68,18 +71,33 @@ Bundle 'tpope/vim-vinegar'
 Bundle 'kien/ctrlp.vim'
     let g:ctrlp_root_markers=['.git/']
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'chrisbra/NrrwRgn'
+    let g:nrrw_rgn_vert = 1
 
 
 " COLOR SCHEME
-" Bundle 'altercation/vim-colors-solarized'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'junegunn/seoul256.vim'
     let g:seoul256_background = 233
-    colo seoul256
+
+set t_Co=256               " enable 256-color mode.
+" set background=light
+set background=dark
+" let g:solarized_termcolors=256
+" colorscheme solarized
+" colorscheme desert
+colorscheme seoul256
+" colorscheme seoul256-light
+" colorscheme elflord
+
 
 
 " GIT
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'mmozuras/vim-github-comment'
+Bundle 'mattn/webapi-vim.git'
+    let g:github_user = 'esoergel'
 
 
 " Bundle commands
@@ -95,31 +113,51 @@ Bundle 'airblade/vim-gitgutter'
 " ========
 let mapleader=" "
 
-map <leader>v :vsplit<CR>
-map <leader>s :split<CR>
-map <leader>w <C-w>
-map <leader>* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
-map <leader>D Oimport ipdb; ipdb.set_trace()<Esc>
-map <leader>d oimport ipdb; ipdb.set_trace()<Esc>
-map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
-map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
-map <leader>% :source %<CR>
+" obj.value -> obj['value']
+nnoremap <leader>] ea']<Esc>3bxi['<Esc>
+" nnoremap <leader>] "gdiwxa['']<Esc>h"gP
 
 " copy-paste to/from register
-map <leader>y "vy
-map <leader>p "vp
-map <leader>P "vP
-
+map <leader>% :source %<CR>
+map <leader>* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
+map <leader>/ <leader>c 
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
+map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>e :Tagbar<CR>
+
+" git and diff stuff
+map <leader>d2 :diffget //2 <bar> diffupdate<CR>
+map <leader>d3 :diffget //3 <bar> diffupdate<CR>
+map <leader>dg :diffget <bar> diffupdate<CR>
+map <leader>dp :diffput <bar> diffupdate<CR>
+map <leader>du :diffupdate<CR>
+map <leader>gb :Gblame<CR>
+map <leader>gc :GHComment 
+map <leader>gd :Gdiff 
+map <leader>gs :Gstatus<CR>:resize +20<CR>
+map <leader>gw :Gwrite<CR>
+
+map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+map <leader>p "vp
+map <leader>P "vP
 map <leader>p :CtrlP<CR>
+" consider moving split and vsplit to <leader>ws (and wv)
+map <leader>s :split<CR>
 map <leader>t :CtrlPTag<CR>
 map <leader>u :GundoToggle<CR>
-map <leader>/ <leader>c 
-
-map <leader>gb :Gblame<CR>
-map <leader>gd :Gdiff 
+map <leader>v :vsplit<CR>
+map <leader>w <C-w>
+map <leader>W :%s/\s\+$//
+map <leader>x :syntax on<CR>:source ~/.vimrc<CR>
+map <leader>y "vy
 " nnoremap <silent> <Esc> :noh<CR><Esc><Esc>
+
+" remove annoying commands
+nnoremap q: <Nop>
+nnoremap Q <Nop>
 
 " Use ranger as vim file manager
 function! Ranger()
@@ -146,8 +184,24 @@ nmap <leader>r :call Ranger()<cr>
 " output
 vnoremap <silent> <Leader>0 :!python<cr>
 
+" Syntax
+" ======
+" au BufReadPost SCons* set syntax=python
+" au BufReadPost Cons* set syntax=perl
+" au BufReadPost *.mke set syntax=make
+" au BufReadPost make*.inc set syntax=make
+" au BufReadPost *.fcc set syntax=cpp
+" au BufReadPost *.fhh set syntax=cpp
+
+
 " Settings
 " ========
+
+" Show trailing whitespace
+set list listchars=tab:»·,trail:·
+" Hide them with leader s
+" nmap <silent> <leader>s :set nolist!<CR>
+
 if has('mouse')
     set mouse=a
 endif
@@ -171,9 +225,7 @@ nnoremap <silent> \ :noh<CR>
 " map <leader>/ :noh<CR>
 set incsearch              " start looking for search matches while typing
 set showcmd
-
-" set t_Co=256               " enable 256-color mode.
-" colorscheme desert         " set colorscheme
+set tabstop=4
 
 " set fileformats+=dos       " don't auto-add an eol character
 
@@ -193,5 +245,6 @@ set wildignore+=*.pyc
 " set hidden
 
 set showmode
+set nowrap
 
 noh

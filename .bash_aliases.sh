@@ -13,3 +13,4 @@ alias hub=~/libs/hub
 alias lessc='nodejs /opt/lessc/bin/lessc'
 alias xcape=~/libs/xcape/xcape 
 alias xinit=~/.xinit
+alias we='workon hq2 && source venv'

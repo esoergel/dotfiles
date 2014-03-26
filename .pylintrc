@@ -66,9 +66,16 @@ load-plugins=
 # Sometimes disabled depending on how bad a module is
 #   C0111 = Missing docstring
 
-# Disable the message(s) with the given id(s).
 # disable=W0142,W0403,R0201,W0212,W0613,W0232,R0903,W0614,C0111,C0301,R0913,C0103,F0401,W0402,R0914
-disable = R0201, W0232, R0903, C0103
+
+# disable the following:
+#   R0201 = Method could be a function
+#   W0232 = Class has no __init__ method
+#   R0903 = Too few public methods
+#   C0103 = Invalid name
+#   E1002 = Use of super on an old style class
+#   C0111 = Missing docstring
+disable = R0201, W0232, R0903, C0103, E1002, C0111, W0141
 
 
 [REPORTS]

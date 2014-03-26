@@ -9,7 +9,7 @@
 	co = checkout
 	br = branch
 	st = status
-	su = submodule update
+	su = submodule update --recursive
 
 	# ETHAN, add something for log --graph
 	# LOG SHORTCUTS
@@ -20,9 +20,9 @@
 	# attributes: bold, dim, ul, blink and reverse.
 
 	# show log listing files changed
-	ls = log --stat
-	lsn = log --stat HEAD --not
-	lsnm = log --stat HEAD --not master
+	ls = log --stat --graph
+	lsn = log --stat HEAD --graph --not
+	lsnm = log --stat HEAD --not master --graph
 
 	# from mwhite's gitconf:
 	#show log with full diffs
