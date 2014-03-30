@@ -46,6 +46,7 @@ Bundle 'scrooloose/nerdcommenter'
 " CODE
 Bundle 'scrooloose/syntastic'
     let g:syntastic_python_checkers=['python']
+    let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_python_checkers=['pylint']
 Bundle 'othree/html5.vim'
 Bundle 'groenewege/vim-less'
@@ -136,7 +137,7 @@ map <leader>du :diffupdate<CR>
 map <leader>gb :Gblame<CR>
 map <leader>gc :GHComment 
 map <leader>gd :Gdiff 
-map <leader>gs :Gstatus<CR>:resize +20<CR>
+map <leader>gs :Gstatus<CR>:resize +10<CR>
 map <leader>gw :Gwrite<CR>
 
 map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
@@ -176,6 +177,15 @@ function! Ranger()
 endfunction
 
 nmap <leader>r :call Ranger()<cr>
+
+" function! RandString(n)
+    " python
+    " import vim, random, string
+    " n = vim.eval("a:n")
+    " randstring = ''.join(random.choice(string.lowercase+string.digits*2) for i in range n)
+    " vim.command("return %s" % randstring)
+    " EOF
+" endfunction
 
 
 
@@ -225,7 +235,15 @@ nnoremap <silent> \ :noh<CR>
 " map <leader>/ :noh<CR>
 set incsearch              " start looking for search matches while typing
 set showcmd
-set tabstop=4
+
+" Tab options
+set tabstop=4                   "A tab is 4 spaces
+set expandtab                   "Always uses spaces instead of tabs
+set softtabstop=4               "Insert 4 spaces when tab is pressed
+set shiftwidth=4                "An indent is 4 spaces
+set smarttab                    "Indent instead of tab at start of line
+set shiftround                  "Round spaces to nearest shiftwidth multiple
+set nojoinspaces                "Don't convert spaces to tabs
 
 " set fileformats+=dos       " don't auto-add an eol character
 
