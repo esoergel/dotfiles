@@ -120,12 +120,23 @@ nnoremap <leader>] ea']<Esc>3bxi['<Esc>
 
 " copy-paste to/from register
 map <leader>% :source %<CR>
+
+" try out prefixing these
 map <leader>* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
+map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+" with c:
+map <leader>c* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
+map <leader>cd oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>cD Oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>co :set paste<CR>m`o<Esc>``:set nopaste<CR>
+map <leader>cO :set paste<CR>m`O<Esc>``:set nopaste<CR>
+
 map <leader>/ <leader>c 
 map <leader>a :Ag 
 map <leader>b :CtrlPBuffer<CR>
-map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
-map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>e :Tagbar<CR>
 
 " git and diff stuff
@@ -140,11 +151,9 @@ map <leader>gd :Gdiff
 map <leader>gs :Gstatus<CR>:resize +10<CR>
 map <leader>gw :Gwrite<CR>
 
-map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
-map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 map <leader>p "vp
 map <leader>P "vP
-map <leader>p :CtrlP<CR>
+map <leader>o :CtrlP<CR>
 " consider moving split and vsplit to <leader>ws (and wv)
 map <leader>s :split<CR>
 map <leader>t :CtrlPTag<CR>
