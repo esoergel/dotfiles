@@ -76,7 +76,8 @@ Bundle 'chrisbra/NrrwRgn'
     let g:nrrw_rgn_vert = 1
 
 
-" COLOR SCHEME
+" UI
+Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'junegunn/seoul256.vim'
     let g:seoul256_background = 233
@@ -112,7 +113,7 @@ Bundle 'mattn/webapi-vim.git'
 
 " Mappings
 " ========
-let mapleader=" "
+let mapleader="\<Space>"
 
 " obj.value -> obj['value']
 nnoremap <leader>] ea']<Esc>3bxi['<Esc>
@@ -187,16 +188,21 @@ endfunction
 
 nmap <leader>r :call Ranger()<cr>
 
-" function! RandString(n)
-    " python
-    " import vim, random, string
-    " n = vim.eval("a:n")
-    " randstring = ''.join(random.choice(string.lowercase+string.digits*2) for i in range n)
-    " vim.command("return %s" % randstring)
-    " EOF
-" endfunction
-
-
+" function to generate a random alphanumeric string
+" `:RandString 30` appends 30 chars to your current line
+function! RandString(n)
+python << EOF
+import vim, random, string
+n = vim.eval("a:n")
+randstring = ''.join(
+    random.choice(string.lowercase+string.digits*2) for i in
+    range(int(n))
+)
+print randstring
+vim.current.line = vim.current.line + randstring
+EOF
+endfunction
+command! -nargs=1 RandString call RandString(<args>)
 
 " Holy shit, this is possible??
 " <Leader>0: Run the visually selected code in python and replace it with the
@@ -237,11 +243,9 @@ set linebreak
 set autoread               " Read any changes on disk if not altered in vim
 
 set whichwrap+=<,>,h,l,[,]
-set hlsearch               " highlight searches
-" set nohlsearch             " Don't continue to highlight searched phrases.
-" temporarily turn off highlight with \
+
+set hlsearch
 nnoremap <silent> \ :noh<CR>
-" map <leader>/ :noh<CR>
 set incsearch              " start looking for search matches while typing
 set showcmd
 
