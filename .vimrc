@@ -170,44 +170,8 @@ map <leader>y "vy
 nnoremap q: <Nop>
 nnoremap Q <Nop>
 
-" Use ranger as vim file manager
-function! Ranger()
-    " Get a temp file name without creating it
-    let tmpfile = substitute(system('mktemp -u'), '\n', '', '')
-    " Launch ranger, passing it the temp file name
-    silent exec '!RANGER_RETURN_FILE='.tmpfile.' ranger'
-    " If the temp file has been written by ranger
-    if filereadable(tmpfile)
-        " Get the selected file name from the temp file
-        let filetoedit = system('cat '.tmpfile)
-        exec 'edit '.filetoedit
-        call delete(tmpfile)
-    endif
-    redraw!
-endfunction
-
-nmap <leader>r :call Ranger()<cr>
-
-" function to generate a random alphanumeric string
-" `:RandString 30` appends 30 chars to your current line
-function! RandString(n)
-python << EOF
-import vim, random, string
-n = vim.eval("a:n")
-randstring = ''.join(
-    random.choice(string.lowercase+string.digits*2) for i in
-    range(int(n))
-)
-print randstring
-vim.current.line = vim.current.line + randstring
-EOF
-endfunction
-command! -nargs=1 RandString call RandString(<args>)
-
-" Holy shit, this is possible??
-" <Leader>0: Run the visually selected code in python and replace it with the
-" output
 vnoremap <silent> <Leader>0 :!python<cr>
+
 
 " Syntax
 " ======
@@ -279,3 +243,83 @@ set showmode
 set nowrap
 
 noh
+
+" ==============
+" Custom Scripts
+" ==============
+
+" Use ranger as vim file manager
+" ==============================
+function! Ranger()
+    " Get a temp file name without creating it
+    let tmpfile = substitute(system('mktemp -u'), '\n', '', '')
+    " Launch ranger, passing it the temp file name
+    silent exec '!RANGER_RETURN_FILE='.tmpfile.' ranger'
+    " If the temp file has been written by ranger
+    if filereadable(tmpfile)
+        " Get the selected file name from the temp file
+        let filetoedit = system('cat '.tmpfile)
+        exec 'edit '.filetoedit
+        call delete(tmpfile)
+    endif
+    redraw!
+endfunction
+
+nmap <leader>r :call Ranger()<cr>
+
+
+" Append alphanumeric string
+" ==========================
+" `:RandString 30` appends 30 chars to your current line
+function! RandString(n)
+python << EOF
+import vim, random, string
+n = vim.eval("a:n")
+randstring = ''.join(
+    random.choice(string.lowercase+string.digits*2) for i in
+    range(int(n))
+)
+print randstring
+vim.current.line = vim.current.line + randstring
+EOF
+endfunction
+command! -nargs=1 RandString call RandString(<args>)
+
+
+" Replace selection with random chars
+" ===================================
+function! RandReplace()
+python << EOF
+import vim, random, string
+buf = vim.current.buffer
+(line1, col1) = buf.mark('<')
+(line2, col2) = buf.mark('>')
+lines = vim.eval('getline({0}, {1})'.format(line1, line2))
+getrand = lambda: random.choice(string.lowercase+string.digits*2)
+def process_line(line, num):
+    # Version 1
+    start = col1 if num == 0 else 0
+    end = col2 if num == (line2-line1) else 1000
+    outline = ''
+    for i, char in enumerate(line):
+        if start <= i <= end:
+            outline += getrand()
+        else:
+            outline += char
+    return outline
+
+    # Version 2
+    start = col1 if num == 0 else 0
+    end = col2 if num == (line2-line1) else 1000
+    return ''.join([
+        getrand() if (start <= i <= end) else char
+        for i, char in enumerate(line)
+    ])
+
+for i, line in enumerate(lines):
+    buf[line1+i-1] = process_line(line, i)
+EOF
+endfunction
+vnoremap <Leader>r :call RandReplace()<cr>
+
+
