@@ -297,25 +297,12 @@ buf = vim.current.buffer
 lines = vim.eval('getline({0}, {1})'.format(line1, line2))
 getrand = lambda: random.choice(string.lowercase+string.digits*2)
 def process_line(line, num):
-    # Version 1
-    start = col1 if num == 0 else 0
-    end = col2 if num == (line2-line1) else 1000
-    outline = ''
-    for i, char in enumerate(line):
-        if start <= i <= end:
-            outline += getrand()
-        else:
-            outline += char
-    return outline
-
-    # Version 2
     start = col1 if num == 0 else 0
     end = col2 if num == (line2-line1) else 1000
     return ''.join([
         getrand() if (start <= i <= end) else char
         for i, char in enumerate(line)
     ])
-
 for i, line in enumerate(lines):
     buf[line1+i-1] = process_line(line, i)
 EOF
@@ -323,3 +310,60 @@ endfunction
 vnoremap <Leader>r :call RandReplace()<cr>
 
 
+" Wrap multi-line comment
+" =======================
+function! WrapComment()
+python << EOF
+import vim
+from itertools import takewhile
+print "*"*40, 'ESOE: WrapComment', "*"*40
+LINE_MAX = 40
+buf = vim.current.buffer
+# selection = vim.current.range
+(line1, _) = buf.mark('<')
+(line2, _) = buf.mark('>')
+lines = vim.eval('getline({0}, {1})'.format(line1, line2))
+prefix = ''.join(takewhile(lambda char: char in ' #', lines[0]))
+text = ' '.join([line.lstrip(' #').strip() for line in lines])
+lines = [[prefix]]
+# length = lambda line: sum(map(len, line)) + min(0, len(line)-1)
+def length(line, word):
+    tmp = sum(map(len, line+[word])) + len(line) - 1
+    return tmp
+for word in text.split():
+    if length(lines[-1], word) < LINE_MAX:
+        lines[-1].append(word)
+    else:
+        lines.append([prefix, word])
+def join_line(line):
+    return ' '.join([line[0] + line[1]] + line[1:])
+    # print '\n'.join([' '.join([line[0] + line[1]] + line[2:]) for line in lines])
+print buf[line1-1:line2-1]
+print [' '.join([line[0] + line[1]] + line[2:]) for line in lines]
+if buf[line1-1:line2-1] != [' '.join([line[0] + line[1]] + line[2:]) for line in lines]:
+    del buf[line1-1:line2-1]
+    buf.append([' '.join([line[0] + line[1]] + line[2:]) for line in lines], line1)
+
+# print '\n'.join(lines)
+# r = buf.range(line1-1, line2-1)
+# print r
+# buf.append(lines)
+EOF
+endfunction
+
+
+fun! GetRange()
+python << EOF
+
+import vim
+
+buf = vim.current.buffer
+(lnum1, col1) = buf.mark('<')
+(lnum2, col2) = buf.mark('>')
+lines = vim.eval('getline({}, {})'.format(lnum1, lnum2))
+lines[0] = lines[0][col1:]
+lines[-1] = lines[-1][:col2]
+print "\n".join(lines)
+
+EOF
+endfun
