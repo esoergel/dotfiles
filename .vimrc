@@ -48,6 +48,10 @@ Bundle 'scrooloose/syntastic'
     let g:syntastic_python_checkers=['python']
     let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_python_checkers=['pylint']
+Bundle 'kovisoft/slimv'
+    let g:slimv_lisp = '/usr/local/bin/scheme'
+    let g:scheme_builtin_swank = 1
+    let g:slimv_impl = 'imit'
 Bundle 'othree/html5.vim'
 Bundle 'groenewege/vim-less'
 " Bundle 'davidhalter/jedi-vim'
@@ -130,10 +134,12 @@ map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " with c:
 map <leader>c* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
+map <leader>cp oimport json; print json.dumps(<c-o>p, indent=4)<Esc>
 map <leader>cd oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>cD Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>co :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>cO :set paste<CR>m`O<Esc>``:set nopaste<CR>
+iabbrev pdb import ipdb; ipdb.set_trace()
 
 map <leader>/ <leader>c 
 map <leader>a :Ag 
