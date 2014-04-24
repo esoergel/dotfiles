@@ -11,6 +11,9 @@
 	st = status
 	su = submodule update --recursive
 
+	# remove all branches merged in to head
+	trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
 	# ETHAN, add something for log --graph
 	# LOG SHORTCUTS
 	# show commits not on master
