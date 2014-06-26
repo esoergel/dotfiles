@@ -47,12 +47,14 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
     let g:syntastic_python_checkers=['python']
     let g:syntastic_haskell_checkers=['ghc_mod']
+    let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
     " let g:syntastic_python_checkers=['pylint']
-Bundle 'kovisoft/slimv'
-    let g:slimv_lisp = '/usr/local/bin/scheme'
-    let g:scheme_builtin_swank = 1
-    let g:slimv_impl = 'imit'
+" Bundle 'kovisoft/slimv'
+    " let g:slimv_lisp = '/usr/local/bin/scheme'
+    " let g:scheme_builtin_swank = 1
+    " let g:slimv_impl = 'imit'
 Bundle 'othree/html5.vim'
+Bundle 'othree/xml.vim'
 Bundle 'groenewege/vim-less'
 " Bundle 'davidhalter/jedi-vim'
 " Don't popup docstring window
@@ -83,16 +85,25 @@ Bundle 'chrisbra/NrrwRgn'
 " UI
 Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
+    let g:solarized_termcolors=256
 Bundle 'junegunn/seoul256.vim'
     let g:seoul256_background = 233
+Bundle 'morhetz/gruvbox'
+    if !has("gui_running")
+        let g:gruvbox_italic=0
+    endif
+Bundle 'chriskempson/base16-vim'
+    let base16colorspace=256
 
-set t_Co=256               " enable 256-color mode.
 " set background=light
 set background=dark
-" let g:solarized_termcolors=256
 " colorscheme solarized
 " colorscheme desert
+" colorscheme gruvbox
 colorscheme seoul256
+" if has("gui_running")
+    " colorscheme base16-tomorrow
+" endif
 " colorscheme seoul256-light
 " colorscheme elflord
 
@@ -140,11 +151,15 @@ map <leader>cD Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>co :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>cO :set paste<CR>m`O<Esc>``:set nopaste<CR>
 iabbrev pdb import ipdb; ipdb.set_trace()
+iabbrev ppj import json; print json.dumps(, indent=4)
 
-map <leader>/ <leader>c 
-map <leader>a :Ag 
+map <leader>/ <leader>c<space>
+map <leader>a :Ag<space>
 map <leader>b :CtrlPBuffer<CR>
 map <leader>e :Tagbar<CR>
+
+nnoremap <leader>fp 0f(a<CR><Esc>k0f(%i<CR><Esc>kV:s/, /,\r/g<CR>vib=k$%<<
+map <leader>ft vab:s/[(,]/\0\r/g<CR>`[V`]=/)<CR>i<CR><ESC><<
 
 " git and diff stuff
 map <leader>d2 :diffget //2 <bar> diffupdate<CR>
@@ -153,8 +168,9 @@ map <leader>dg :diffget <bar> diffupdate<CR>
 map <leader>dp :diffput <bar> diffupdate<CR>
 map <leader>du :diffupdate<CR>
 map <leader>gb :Gblame<CR>
-map <leader>gc :GHComment 
-map <leader>gd :Gdiff 
+map <leader>gc :Gcommit<CR>
+map <leader>gh :GHComment<space>
+map <leader>gd :Gdiff<space>
 map <leader>gs :Gstatus<CR>:resize +10<CR>
 map <leader>gw :Gwrite<CR>
 
@@ -162,7 +178,7 @@ map <leader>p "vp
 map <leader>P "vP
 map <leader>o :CtrlP<CR>
 " consider moving split and vsplit to <leader>ws (and wv)
-map <leader>s :split<CR>
+map <leader>s :w<CR>
 map <leader>t :CtrlPTag<CR>
 map <leader>u :GundoToggle<CR>
 map <leader>v :vsplit<CR>
@@ -196,6 +212,7 @@ vnoremap <silent> <Leader>0 :!python<cr>
 set list listchars=tab:»·,trail:·
 " Hide them with leader s
 " nmap <silent> <leader>s :set nolist!<CR>
+" set nolist
 
 if has('mouse')
     set mouse=a
@@ -204,12 +221,6 @@ endif
 set number                 " show line numbers
 set ignorecase
 set smartcase              " Make searches case-sensitive iff search is mixed case
-" http://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297Fhttp://jrgraphix.net/r/Unicode/2900-297F
-" http://jrgraphix.net/r/Unicode/2900-297F
-" ⤇ → ⤘ ⥹ ⥤ ⤷
-set showbreak=⤇\  
-" set showbreak=>>>
-set linebreak
 set autoread               " Read any changes on disk if not altered in vim
 
 set whichwrap+=<,>,h,l,[,]
@@ -220,13 +231,13 @@ set incsearch              " start looking for search matches while typing
 set showcmd
 
 " Tab options
-set tabstop=4                   "A tab is 4 spaces
 set expandtab                   "Always uses spaces instead of tabs
 set softtabstop=4               "Insert 4 spaces when tab is pressed
 set shiftwidth=4                "An indent is 4 spaces
 set smarttab                    "Indent instead of tab at start of line
 set shiftround                  "Round spaces to nearest shiftwidth multiple
 set nojoinspaces                "Don't convert spaces to tabs
+set tabstop=4                   "A tab is 4 spaces
 
 " set fileformats+=dos       " don't auto-add an eol character
 
@@ -246,7 +257,22 @@ set wildignore+=*.pyc
 " set hidden
 
 set showmode
-set nowrap
+set wrap
+" requires the breakindent patch
+set breakindent
+" http://jrgraphix.net/r/Unicode/2900-297F
+" ⤇ → ⤘ ⥹ ⥤ ⤷
+set showbreak=⤇<\  
+set showbreak=⤷\  
+set linebreak
+
+" auto indent xml files with '='
+" http://ku1ik.com/2011/09/08/formatting-xml-in-vim-with-indent-command.html
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
+" save view on files - folding, etc..
+autocmd BufWrite * mkview
+autocmd BufRead * silent loadview
 
 noh
 
@@ -318,6 +344,7 @@ vnoremap <Leader>r :call RandReplace()<cr>
 
 " Wrap multi-line comment
 " =======================
+" Check out python's stdlib textwrap.  In particular fill and wrap.
 function! WrapComment()
 python << EOF
 import vim
