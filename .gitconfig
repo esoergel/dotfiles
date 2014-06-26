@@ -11,7 +11,7 @@
 	st = status
 	su = submodule update --recursive
 
-	# remove all branches merged in to head
+	# remove all branches merged in to HEAD
 	trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
 	# ETHAN, add something for log --graph
@@ -66,3 +66,5 @@
 	tool = vimdiff
 [merge]
 	tool = vimdiff
+[credential]
+	helper = cache --timeout=3600
