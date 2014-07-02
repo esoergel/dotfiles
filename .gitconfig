@@ -16,8 +16,8 @@
 
 	# ETHAN, add something for log --graph
 	# LOG SHORTCUTS
-	# show commits not on master
-	lnm = log HEAD --not master
+	# show commits not on origin/master
+	lnm = log HEAD --not origin/master
 	
 	# colors: normal, black, red, green, yellow, blue, magenta, cyan and white
 	# attributes: bold, dim, ul, blink and reverse.
@@ -25,12 +25,12 @@
 	# show log listing files changed
 	ls = log --stat --graph
 	lsn = log --stat HEAD --graph --not
-	lsnm = log --stat HEAD --not master --graph
+	lsnm = log --stat HEAD --not origin/master --graph
 
 	# from mwhite's gitconf:
 	#show log with full diffs
 	lpn = log -p HEAD --not  
-	lpnm = log -p HEAD --not master
+	lpnm = log -p HEAD --not origin/master
 
 	# https://gist.github.com/mwhite/6887990
 	# one-line log
