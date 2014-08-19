@@ -14,7 +14,6 @@
 	# remove all branches merged in to HEAD
 	trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
-	# ETHAN, add something for log --graph
 	# LOG SHORTCUTS
 	# show commits not on origin/master
 	lnm = log HEAD --not origin/master
