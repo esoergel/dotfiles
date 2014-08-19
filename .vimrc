@@ -376,6 +376,14 @@ EOF
 endfunction
 vnoremap <Leader>r :call RandReplace()<cr>
 
+function! SearchForString()
+    :let [line1, col1] = searchpos("\\<", "bcn")
+    :let [line2, col2] = searchpos("\\>", "cn")
+    :let word = strpart(getline("."), col1-1, col2-col1)
+    :call ag#Ag('grep', word)
+endfunction
+map <C-\> :call SearchForString()<CR>
+
 
 " Wrap multi-line comment
 " =======================
