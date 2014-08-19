@@ -346,12 +346,28 @@ buf = vim.current.buffer
 (line1, col1) = buf.mark('<')
 (line2, col2) = buf.mark('>')
 lines = vim.eval('getline({0}, {1})'.format(line1, line2))
-getrand = lambda: random.choice(string.lowercase+string.digits*2)
+input_str = ''
+for i, line in enumerate(lines):
+    start = col1 if i == 0 else 0
+    end = col2 if i == len(lines)-1 else 1000
+    input_str += line[start:end]
+char_sets = [string.lowercase, string.uppercase, string.digits, string.digits]
+char_pool = ''
+for char_set in char_sets:
+    for char in input_str:
+        if char in char_set:
+            char_pool += char_set
+            break
+# char_pool = string.uppercase + string.digits*2
+getrand = lambda: random.choice(char_pool)
 def process_line(line, num):
     start = col1 if num == 0 else 0
     end = col2 if num == (line2-line1) else 1000
     return ''.join([
-        getrand() if (start <= i <= end) else char
+        getrand() if (
+            start <= i <= end
+            and char in char_pool
+        ) else char
         for i, char in enumerate(line)
     ])
 for i, line in enumerate(lines):
