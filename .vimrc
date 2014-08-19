@@ -293,6 +293,11 @@ noh
 " ==============
 " Custom Scripts
 " ==============
+function! Ctags()
+    !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.js
+    !ctags -R --python-kinds=-i -a $VIRTUAL_ENV/lib/python2.7/site-packages/* --exclude=.git --exclude=node_modules --exclude=*.js
+endfunction
+nnoremap <leader>ct :call Ctags()<CR>
 
 " Use ranger as vim file manager
 " ==============================
