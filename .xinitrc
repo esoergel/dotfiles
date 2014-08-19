@@ -7,3 +7,7 @@ if [ -f ~/.xmodmaprc ]; then
 fi
 
 . /etc/
+
+synclient TouchpadOff=1
+
+xpmroot ~/cracked-screen.png
