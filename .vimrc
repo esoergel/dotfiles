@@ -30,6 +30,8 @@ Bundle 'Gundo'
 Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
 
+Bundle 'vim-scripts/paredit.vim'
+
 " Auto-detect indentation
 Bundle 'tpope/vim-sleuth'
 Bundle 'scrooloose/nerdcommenter'
@@ -39,7 +41,8 @@ Bundle 'scrooloose/nerdcommenter'
     let g:NERDCustomDelimiters = {
         \ 'html': {
           \ 'leftAlt': '{# ', 'rightAlt': ' #}',
-          \ }
+          \ },
+        \ 'lisp': { 'left': ';;'},
       \ }
 
 
@@ -47,7 +50,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
     let g:syntastic_python_checkers=['python']
     let g:syntastic_haskell_checkers=['ghc_mod']
-    let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
+    " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
     " let g:syntastic_python_checkers=['pylint']
 " Bundle 'kovisoft/slimv'
     " let g:slimv_lisp = '/usr/local/bin/scheme'
@@ -63,18 +66,20 @@ Bundle 'groenewege/vim-less'
 
 " NAVIGATION
 Bundle 'rking/ag.vim'
+  let g:agprg="ag --column --smart-case"
+  let g:aghighlight=1
 " Sublime Text style multiple selection
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'majutsushi/tagbar'
     let g:tagbar_sort = 0
 Bundle 'tpope/vim-vinegar'
-" Bundle 'scrooloose/nerdtree'
-    " " Auto close NERDTree
-    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-    " let NERDTreeIgnore=[
-        " \ '\~$',
-        " \ '\.pyc$',
-        " \ ]
+Bundle 'scrooloose/nerdtree'
+    " Auto close NERDTree
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    let NERDTreeIgnore=[
+        \ '\~$',
+        \ '\.pyc$',
+        \ ]
 Bundle 'kien/ctrlp.vim'
     let g:ctrlp_root_markers=['.git/']
 Bundle 'Lokaltog/vim-easymotion'
@@ -83,7 +88,7 @@ Bundle 'chrisbra/NrrwRgn'
 
 
 " UI
-Bundle 'bling/vim-airline'
+" Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
     let g:solarized_termcolors=256
 Bundle 'junegunn/seoul256.vim'
@@ -113,6 +118,7 @@ colorscheme seoul256
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'mmozuras/vim-github-comment'
+Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim.git'
     let g:github_user = 'esoergel'
 
@@ -170,8 +176,9 @@ map <leader>du :diffupdate<CR>
 map <leader>gb :Gblame<CR>
 map <leader>gc :Gcommit<CR>
 map <leader>gh :GHComment<space>
-map <leader>gd :Gdiff<space>
-map <leader>gs :Gstatus<CR>:resize +10<CR>
+map <leader>gg :Gist -b<space>
+map <leader>gd :Gvdiff<space>
+map <leader>gs :Gstatus<CR>
 map <leader>gw :Gwrite<CR>
 
 map <leader>p "vp
@@ -179,6 +186,7 @@ map <leader>P "vP
 map <leader>o :CtrlP<CR>
 " consider moving split and vsplit to <leader>ws (and wv)
 map <leader>s :w<CR>
+map <leader>rt :r!./manage.py test 
 map <leader>t :CtrlPTag<CR>
 map <leader>u :GundoToggle<CR>
 map <leader>v :vsplit<CR>
@@ -218,10 +226,16 @@ if has('mouse')
     set mouse=a
 endif
 
+set cursorline
+set cursorcolumn
+
 set number                 " show line numbers
 set ignorecase
 set smartcase              " Make searches case-sensitive iff search is mixed case
 set autoread               " Read any changes on disk if not altered in vim
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 
 set whichwrap+=<,>,h,l,[,]
 
@@ -297,7 +311,7 @@ function! Ranger()
     redraw!
 endfunction
 
-nmap <leader>r :call Ranger()<cr>
+nmap <leader>rr :call Ranger()<CR>
 
 
 " Append alphanumeric string
