@@ -29,8 +29,8 @@ Bundle 'Gundo'
     let g:gundo_right = 0
 Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
-
-Bundle 'vim-scripts/paredit.vim'
+Bundle 'Raimondi/delimitMate'
+" Bundle 'vim-scripts/paredit.vim'
 
 " Auto-detect indentation
 Bundle 'tpope/vim-sleuth'
@@ -56,12 +56,28 @@ Bundle 'scrooloose/syntastic'
     " let g:slimv_lisp = '/usr/local/bin/scheme'
     " let g:scheme_builtin_swank = 1
     " let g:slimv_impl = 'imit'
+" Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'othree/html5.vim'
 Bundle 'othree/xml.vim'
 Bundle 'groenewege/vim-less'
+Bundle 'fs111/pydoc.vim'
 " Bundle 'davidhalter/jedi-vim'
 " Don't popup docstring window
 " autocmd FileType python setlocal completeopt-=preview
+" Bundle 'vim-pandoc/vim-pandoc'
+" Bundle 'vim-pandoc/vim-pandoc-syntax'
+    " let g:pandoc#modules#disabled = ["folding"]
+    " let g:pandoc#syntax#conceal#use = 0
+
+Bundle 'klen/python-mode'
+    let g:pymode_lint = 0
+    let g:pymode_rope_rename_bind = "<leader>cr"
+    let g:pymode_folding = 0
+    let g:pymode_doc = 1
+    let g:pymode_doc_bind = 'K'
+    let g:pymode_trim_whitespaces = 0
+    let g:pymode_breakpoint = 0
+    let g:pymode_breakpoint_bind = '<leader>dldb'
 
 
 " NAVIGATION
@@ -80,14 +96,20 @@ Bundle 'scrooloose/nerdtree'
         \ '\~$',
         \ '\.pyc$',
         \ ]
+    let g:NERDTreeMapUpdirKeepOpen = "-"
 Bundle 'kien/ctrlp.vim'
     let g:ctrlp_root_markers=['.git/']
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'chrisbra/NrrwRgn'
     let g:nrrw_rgn_vert = 1
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'h1mesuke/unite-outline'
+    let g:unite_winheight=12
 
 
 " UI
+Bundle 'CSApprox'
 " Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
     let g:solarized_termcolors=256
@@ -99,7 +121,10 @@ Bundle 'morhetz/gruvbox'
     endif
 Bundle 'chriskempson/base16-vim'
     let base16colorspace=256
+Bundle 'chriskempson/vim-tomorrow-theme'
 
+" Eigengrau is #16161D, (22, 22, 29)
+" (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
 " set background=light
 set background=dark
 " colorscheme solarized
@@ -107,7 +132,7 @@ set background=dark
 " colorscheme gruvbox
 colorscheme seoul256
 " if has("gui_running")
-    " colorscheme base16-tomorrow
+" colorscheme Tomorrow-Night-Eighties
 " endif
 " colorscheme seoul256-light
 " colorscheme elflord
@@ -144,18 +169,21 @@ nnoremap <leader>] ea']<Esc>3bxi['<Esc>
 map <leader>% :source %<CR>
 
 " try out prefixing these
-map <leader>* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
+map <leader>* oprint "*"*40, 'ESOE: <c-o>P', "*"*40<Esc>
 map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
+nnoremap go :set paste<CR>m`O<Esc>``:set nopaste<CR>
 map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " with c:
-map <leader>c* oprint "*"*40, 'ESOE: <c-o>p', "*"*40<Esc>
+map <leader>c* oprint "*"*40, 'ESOE: <c-o>P', "*"*40<Esc>
 map <leader>cp oimport json; print json.dumps(<c-o>p, indent=4)<Esc>
 map <leader>cd oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>cD Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>co :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>cO :set paste<CR>m`O<Esc>``:set nopaste<CR>
+map <leader>cp :!pandoc -f html -t markdown <bar> pandoc -f markdown -t html<CR>
+map <leader>cP :%!pandoc -f html -t markdown <bar> pandoc -f markdown -t html<CR>
 iabbrev pdb import ipdb; ipdb.set_trace()
 iabbrev ppj import json; print json.dumps(, indent=4)
 
@@ -171,29 +199,58 @@ map <leader>ft vab:s/[(,]/\0\r/g<CR>`[V`]=/)<CR>i<CR><ESC><<
 map <leader>d2 :diffget //2 <bar> diffupdate<CR>
 map <leader>d3 :diffget //3 <bar> diffupdate<CR>
 map <leader>dg :diffget <bar> diffupdate<CR>
+map <leader>do :diffoff<CR>
 map <leader>dp :diffput <bar> diffupdate<CR>
+map <leader>dt :diffthis<CR>
 map <leader>du :diffupdate<CR>
-map <leader>gb :Gblame<CR>
+map <leader>gb :Gblame -w<CR>
 map <leader>gc :Gcommit<CR>
+map <leader>ga :Gcommit --amend<CR>
 map <leader>gh :GHComment<space>
 map <leader>gg :Gist -b<space>
 map <leader>gd :Gvdiff<space>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :Gwrite<CR>
 
+map <leader>y "vy
 map <leader>p "vp
 map <leader>P "vP
+
+" File searching
 map <leader>o :CtrlP<CR>
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async','sorters','sorter_rank')
+call unite#custom#profile('default', 'context', {
+\   'start_insert': 1,
+\   'winheight': 10,
+\   'direction': 'botright',
+\ })
+nnoremap <leader>p :<C-u>Unite -start-insert file_rec/async:!<CR>
 " consider moving split and vsplit to <leader>ws (and wv)
+
+" Use ag for search
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '-f --nogroup --nocolor --column'
+    let g:unite_source_grep_recursive_opt = ''
+endif
+nnoremap <Leader>s :Unite -no-quit -keep-focus grep:.<cr>
+nnoremap <Leader>f :Unite -no-quit -keep-focus grep:
+
 map <leader>s :w<CR>
 map <leader>rt :r!./manage.py test 
-map <leader>t :CtrlPTag<CR>
+map <leader>ta :CtrlPTag<CR>
+map <leader>tt :tag<CR>
+map <leader>tl :tselect<CR>
+map <leader>tp :pop<CR>
+map <leader>tj :tnext<CR>
+map <leader>tk :tprevious<CR>
 map <leader>u :GundoToggle<CR>
 map <leader>v :vsplit<CR>
 map <leader>w <C-w>
 map <leader>W :%s/\s\+$//
 map <leader>x :syntax on<CR>:source ~/.vimrc<CR>
-map <leader>y "vy
 " nnoremap <silent> <Esc> :noh<CR><Esc><Esc>
 
 " remove annoying commands
@@ -243,6 +300,12 @@ set hlsearch
 nnoremap <silent> \ :noh<CR>
 set incsearch              " start looking for search matches while typing
 set showcmd
+set wrapscan               " wrap search at the end of the document
+
+set relativenumber
+
+" Indent well
+set backspace=indent,eol,start
 
 " Tab options
 set expandtab                   "Always uses spaces instead of tabs
@@ -269,6 +332,8 @@ set wildignore+=*.pyc
 
 " Hide buffers instead of closing them
 " set hidden
+
+set nomodeline                  " Don't try to interpret modelines
 
 set showmode
 set wrap
@@ -298,6 +363,10 @@ function! Ctags()
     !ctags -R --python-kinds=-i -a $VIRTUAL_ENV/lib/python2.7/site-packages/* --exclude=.git --exclude=node_modules --exclude=*.js
 endfunction
 nnoremap <leader>ct :call Ctags()<CR>
+
+" function! Browse
+" endfunction
+command! -bar -nargs=1 Browse silent! exe '!firefox' shellescape(<q-args>, 1)
 
 " Use ranger as vim file manager
 " ==============================
@@ -383,6 +452,7 @@ function! SearchForString()
     :call ag#Ag('grep', word)
 endfunction
 map <C-\> :call SearchForString()<CR>
+nmap g* :Ag -w <C-R><C-W><space>
 
 
 " Wrap multi-line comment
