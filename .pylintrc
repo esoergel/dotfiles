@@ -66,7 +66,7 @@ load-plugins=
 # Sometimes disabled depending on how bad a module is
 #   C0111 = Missing docstring
 
-# disable=W0142,W0403,R0201,W0212,W0613,W0232,R0903,W0614,C0111,C0301,R0913,C0103,F0401,W0402,R0914
+disable=W0142,W0403,R0201,W0212,W0613,W0232,R0903,W0614,C0111,C0301,R0913,C0103,F0401,W0402,R0914
 
 # disable the following:
 #   R0201 = Method could be a function

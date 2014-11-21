@@ -3,41 +3,40 @@
 # https://www.kernel.org/pub/software/scm/git/docs/git-whatchanged.html
 # https://www.kernel.org/pub/software/scm/git/docs/git-log.html
 [user]
-	name = Ethan Soergel
-	email = esoergel@gmail.com
+    name = Ethan Soergel
+    email = esoergel@gmail.com
 [alias]
-	co = checkout
-	br = branch
-	st = status
-	su = submodule update --recursive
+    co = checkout
+    br = branch
+    st = status
+    su = submodule update --recursive
+    ds = diff --stat
 
-	# remove all branches merged in to HEAD
-	trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    # remove all branches merged in to HEAD
+    trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
-	# LOG SHORTCUTS
-	# show commits not on origin/master
-	lnm = log HEAD --not origin/master
-	
-	# colors: normal, black, red, green, yellow, blue, magenta, cyan and white
-	# attributes: bold, dim, ul, blink and reverse.
+    # LOG SHORTCUTS
+    # colors: normal, black, red, green, yellow, blue, magenta, cyan and white
+    # attributes: bold, dim, ul, blink and reverse.
 
-	# show log listing files changed
-	ls = log --stat --graph
-	lsn = log --stat HEAD --graph --not
-	lsnm = log --stat HEAD --not origin/master --graph
+    # show log listing files changed
+    ls = log --stat --graph
+    lsn = log --stat HEAD --graph --not
+    lsnm = log --stat HEAD --not origin/master --graph
 
-	# from mwhite's gitconf:
-	#show log with full diffs
-	lpn = log -p HEAD --not  
-	lpnm = log -p HEAD --not origin/master
+    # from mwhite's gitconf:
+    #show log with full diffs
+    lpn = log -p HEAD --not  
+    lpnm = log -p HEAD --not origin/master
 
-	# https://gist.github.com/mwhite/6887990
-	# one-line log
-	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-	# list aliases
-	la = "!git config -l | grep alias | cut -c 7-"
+    # https://gist.github.com/mwhite/6887990
+    # one-line log
+    l = log --pretty=oneliner --decorate --date=short
+    lnm = log HEAD --pretty=oneliner --not origin/master
+    # list aliases
+    la = "!git config -l | grep alias | cut -c 7-"
 [pretty]
-	cute = "\
+    cute = "\
 %n\
 %C(magenta)%ad \
 %C(blue)[%an] \
@@ -45,25 +44,34 @@
 %Cred%d \
 %n\
 %C(yellow)%s \
-"
+%Creset"
+    oneliner = "\
+%C(magenta)%ad\
+%Cblue [%cn] \
+%C(green)%h \
+%C(yellow)%s\
+%Cred%d\
+%Creset"
 [format]
-	pretty = cute
+    pretty = cute
 [log]
-	# relative, local, default, raw, iso, rfc, short
-	decorate = short
-	date = short
+    # relative, local, default, raw, iso, rfc, short
+    decorate = short
+    date = short
 [core]
-	editor = vim
-	excludesfile = /home/ethan/.gitignore
+    editor = vim
+    excludesfile = /home/ethan/.gitignore
 [push]
-	default = nothing
+    default = nothing
 [color]
-	ui = true
+    ui = true
 [fetch]
-	recurseSubmodules = on-demand
+    recurseSubmodules = on-demand
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [merge]
-	tool = vimdiff
+    tool = vimdiff
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
+[web]
+    browser = firefox
