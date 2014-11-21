@@ -23,3 +23,5 @@ function update-code() {
 # Mechanical Turk
 export MTURK_CMD_HOME=/home/ethan/libs/aws-mturk-clt-1.3.1
 export JAVA_HOME=/usr/
+
+source ~/.tmuxinator/tmuxinator.bash
