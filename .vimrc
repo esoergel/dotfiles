@@ -29,8 +29,12 @@ Bundle 'Gundo'
     let g:gundo_right = 0
 Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
-Bundle 'Raimondi/delimitMate'
+" Bundle 'Raimondi/delimitMate'
 " Bundle 'vim-scripts/paredit.vim'
+Bundle 'haya14busa/incsearch.vim'
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
 
 " Auto-detect indentation
 Bundle 'tpope/vim-sleuth'
@@ -52,6 +56,7 @@ Bundle 'scrooloose/syntastic'
     let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
     " let g:syntastic_python_checkers=['pylint']
+    let g:syntastic_javascript_checkers=['jshint']
 " Bundle 'kovisoft/slimv'
     " let g:slimv_lisp = '/usr/local/bin/scheme'
     " let g:scheme_builtin_swank = 1
@@ -70,8 +75,13 @@ Bundle 'fs111/pydoc.vim'
     " let g:pandoc#syntax#conceal#use = 0
 
 Bundle 'klen/python-mode'
-    let g:pymode_lint = 0
+    let g:pymode_lint = 1
+    " let g:pymode_lint_on_write = 0
+    " let g:pymode_lint_ignore = ""
+    let g:pymode_lint_message = 1
+    let g:pymode_lint_cwindow = 0
     let g:pymode_rope_rename_bind = "<leader>cr"
+    let g:pymode_options_max_line_length = 80
     let g:pymode_folding = 0
     let g:pymode_doc = 1
     let g:pymode_doc_bind = 'K'
@@ -88,6 +98,7 @@ Bundle 'rking/ag.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'majutsushi/tagbar'
     let g:tagbar_sort = 0
+Bundle 'tagexplorer.vim'
 Bundle 'tpope/vim-vinegar'
 Bundle 'scrooloose/nerdtree'
     " Auto close NERDTree
@@ -114,7 +125,7 @@ Bundle 'CSApprox'
 Bundle 'altercation/vim-colors-solarized'
     let g:solarized_termcolors=256
 Bundle 'junegunn/seoul256.vim'
-    let g:seoul256_background = 233
+    let g:seoul256_background = 213
 Bundle 'morhetz/gruvbox'
     if !has("gui_running")
         let g:gruvbox_italic=0
@@ -172,7 +183,8 @@ map <leader>% :source %<CR>
 map <leader>* oprint "*"*40, 'ESOE: <c-o>P', "*"*40<Esc>
 map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
-nnoremap go :set paste<CR>m`O<Esc>``:set nopaste<CR>
+map <leader>dc ofrom celery.contrib import rdb; rdb.set_trace()<Esc>
+nnoremap go :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " with c:
@@ -184,6 +196,8 @@ map <leader>co :set paste<CR>m`o<Esc>``:set nopaste<CR>
 map <leader>cO :set paste<CR>m`O<Esc>``:set nopaste<CR>
 map <leader>cp :!pandoc -f html -t markdown <bar> pandoc -f markdown -t html<CR>
 map <leader>cP :%!pandoc -f html -t markdown <bar> pandoc -f markdown -t html<CR>
+map <leader>cl :PymodeLint<CR>
+map <leader>cn vaC:NR<CR>:wincmd =<CR>
 iabbrev pdb import ipdb; ipdb.set_trace()
 iabbrev ppj import json; print json.dumps(, indent=4)
 
@@ -262,16 +276,19 @@ vnoremap <silent> <Leader>0 :!python<cr>
 
 " Syntax
 " ======
-" au BufReadPost SCons* set syntax=python
-" au BufReadPost Cons* set syntax=perl
-" au BufReadPost *.mke set syntax=make
-" au BufReadPost make*.inc set syntax=make
-" au BufReadPost *.fcc set syntax=cpp
-" au BufReadPost *.fhh set syntax=cpp
+" autocmd BufReadPost SCons* set syntax=python
+" autocmd BufReadPost Cons* set syntax=perl
+" autocmd BufReadPost *.mke set syntax=make
+" autocmd BufReadPost make*.inc set syntax=make
+" autocmd BufReadPost *.fcc set syntax=cpp
+" autocmd BufReadPost *.fhh set syntax=cpp
 
 
 " Settings
 " ========
+
+" the 'm' option enables the menu (:set go+=m)
+set guioptions=acgt
 
 " Show trailing whitespace
 set list listchars=tab:»·,trail:·
@@ -302,7 +319,7 @@ set incsearch              " start looking for search matches while typing
 set showcmd
 set wrapscan               " wrap search at the end of the document
 
-set relativenumber
+" set relativenumber
 
 " Indent well
 set backspace=indent,eol,start
@@ -335,6 +352,17 @@ set wildignore+=*.pyc
 
 set nomodeline                  " Don't try to interpret modelines
 
+" here's how you auto-wrap text:
+" :setlocal textwidth=60
+" " or with abbreviations:
+" :setl tw=60
+" reflow thusly:
+" gqip
+"
+" See also :help auto-format
+" :setl fo=acq
+" :setlocal formatoptions=...
+
 set showmode
 set wrap
 " requires the breakindent patch
@@ -347,11 +375,14 @@ set linebreak
 
 " auto indent xml files with '='
 " http://ku1ik.com/2011/09/08/formatting-xml-in-vim-with-indent-command.html
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
+" XForm validator:
+map <leader>cx :!~/Dimagi/form_translate.jar validate "%"<CR>
 
 " save view on files - folding, etc..
-autocmd BufWrite * mkview
-autocmd BufRead * silent loadview
+" autocmd BufWrite * mkview
+" autocmd BufRead * silent loadview
 
 noh
 
