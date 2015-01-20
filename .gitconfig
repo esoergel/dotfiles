@@ -44,6 +44,7 @@
 %Cred%d \
 %n\
 %C(yellow)%s \
+%n%b \
 %Creset"
     oneliner = "\
 %C(magenta)%ad\

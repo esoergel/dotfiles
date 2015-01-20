@@ -12,7 +12,7 @@ call vundle#rc()
 " PLUGINS
 " =======
 " To check out:
-" Bundle 'vim-unimpaired'
+Bundle 'tpope/vim-unimpaired'
 " Bundle 'vim-fuzzyfinder'
 " command T
 
@@ -68,7 +68,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'fs111/pydoc.vim'
 " Bundle 'davidhalter/jedi-vim'
 " Don't popup docstring window
-" autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python setlocal completeopt-=preview
 " Bundle 'vim-pandoc/vim-pandoc'
 " Bundle 'vim-pandoc/vim-pandoc-syntax'
     " let g:pandoc#modules#disabled = ["folding"]
@@ -83,7 +83,7 @@ Bundle 'klen/python-mode'
     let g:pymode_rope_rename_bind = "<leader>cr"
     let g:pymode_options_max_line_length = 80
     let g:pymode_folding = 0
-    let g:pymode_doc = 1
+    let g:pymode_doc = 0
     let g:pymode_doc_bind = 'K'
     let g:pymode_trim_whitespaces = 0
     let g:pymode_breakpoint = 0
@@ -133,6 +133,7 @@ Bundle 'morhetz/gruvbox'
 Bundle 'chriskempson/base16-vim'
     let base16colorspace=256
 Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'osyo-manga/vim-brightest'
 
 " Eigengrau is #16161D, (22, 22, 29)
 " (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
@@ -185,8 +186,9 @@ map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>dc ofrom celery.contrib import rdb; rdb.set_trace()<Esc>
 nnoremap go :set paste<CR>m`o<Esc>``:set nopaste<CR>
-map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
-map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+" use ]<space> and [<space> from vim-unimpaired
+" map <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+" map <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " with c:
 map <leader>c* oprint "*"*40, 'ESOE: <c-o>P', "*"*40<Esc>
 map <leader>cp oimport json; print json.dumps(<c-o>p, indent=4)<Esc>
@@ -208,6 +210,7 @@ map <leader>e :Tagbar<CR>
 
 nnoremap <leader>fp 0f(a<CR><Esc>k0f(%i<CR><Esc>kV:s/, /,\r/g<CR>vib=k$%<<
 map <leader>ft vab:s/[(,]/\0\r/g<CR>`[V`]=/)<CR>i<CR><ESC><<
+vnoremap <leader>djt "vda{% trans "" %}<Esc>bb"vp
 
 " git and diff stuff
 map <leader>d2 :diffget //2 <bar> diffupdate<CR>
@@ -390,8 +393,8 @@ noh
 " Custom Scripts
 " ==============
 function! Ctags()
-    !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.js
-    !ctags -R --python-kinds=-i -a $VIRTUAL_ENV/lib/python2.7/site-packages/* --exclude=.git --exclude=node_modules --exclude=*.js
+    !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.min.js
+    !ctags -R --python-kinds=-i -a $VIRTUAL_ENV/lib/python2.7/site-packages/* --exclude=.git --exclude=node_modules --exclude=*.min.js
 endfunction
 nnoremap <leader>ct :call Ctags()<CR>
 

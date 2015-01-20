@@ -10,4 +10,4 @@ fi
 
 synclient TouchpadOff=1
 
-xpmroot ~/cracked-screen.png
+# xpmroot ~/cracked-screen.png

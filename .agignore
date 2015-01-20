@@ -1,0 +1,10 @@
+*.min.*
+*.map
+
+# HQ noisy files
+main-components.js
+call-center.json
+shCore.js
+jquery.js
+select.js
+*/lib/*

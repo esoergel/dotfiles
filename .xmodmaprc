@@ -4,6 +4,7 @@
 clear Lock
 ! NOTE: this keycode may need to be changed for your control
 keycode 66 = Control_L
+! keycode 66 = Caps_Lock
 add Control = Control_L
 
 keycode 9 = Escape

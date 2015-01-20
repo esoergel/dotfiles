@@ -22,9 +22,12 @@ root: ~/Dimagi/commcare-hq
 windows:
   - editor:
     - we
-    - vim
+    - git br
+    - git st
   - couchdb:
     - couchdb
+  - elastic:
+    - ~/Dimagi/elasticsearch-0.90.2/bin/elasticsearch -f
   - ptop:
     - we
     - dj run_ptop --all
@@ -33,6 +36,6 @@ windows:
     - dj celeryd  # -P gevent --verbosity=2 --beat --statedb=celery.db --events
   - server:
     - we
-    - dj runserver
+    - djrun
   - working:
     - we
