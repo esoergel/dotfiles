@@ -419,7 +419,7 @@ function! Ranger()
     redraw!
 endfunction
 
-nmap <leader>rr :call Ranger()<CR>
+" nmap <leader>rr :call Ranger()<CR>
 
 
 " Append alphanumeric string
@@ -477,7 +477,7 @@ for i, line in enumerate(lines):
     buf[line1+i-1] = process_line(line, i)
 EOF
 endfunction
-vnoremap <Leader>r :call RandReplace()<cr>
+vnoremap <Leader>rr :call RandReplace()<cr>
 
 function! SearchForString()
     :let [line1, col1] = searchpos("\\<", "bcn")

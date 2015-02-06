@@ -30,12 +30,12 @@ windows:
     - ~/Dimagi/elasticsearch-0.90.2/bin/elasticsearch -f
   - ptop:
     - we
-    - dj run_ptop --all
+    - dj run_ptop --pillow-key=core
   - celery:
     - we
-    - dj celeryd  # -P gevent --verbosity=2 --beat --statedb=celery.db --events
+    - dj celeryd --traceback -P gevent --verbosity=2 --beat --statedb=celery.db --events
   - server:
     - we
-    - djrun
+    - djrunserver
   - working:
     - we

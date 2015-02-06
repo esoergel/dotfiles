@@ -25,3 +25,7 @@ export MTURK_CMD_HOME=/home/ethan/libs/aws-mturk-clt-1.3.1
 export JAVA_HOME=/usr/
 
 source ~/.tmuxinator/tmuxinator.bash
+source ~/libs/django_bash_completion.sh
+
+alias brew=~/.linuxbrew/bin/brew
+# export PATH='/home/ethan/.linuxbrew/bin:$PATH'
