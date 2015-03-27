@@ -52,10 +52,12 @@ Bundle 'scrooloose/nerdcommenter'
 
 " CODE
 Bundle 'scrooloose/syntastic'
-    let g:syntastic_python_checkers=['python']
     let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
+    " let g:syntastic_python_checkers=['python']
+    let g:syntastic_python_checkers=['flake8']
     " let g:syntastic_python_checkers=['pylint']
+    " let g:syntastic_python_pylint_exec='~/virtualenvs/hq3/bin/pylint'
     let g:syntastic_javascript_checkers=['jshint']
 " Bundle 'kovisoft/slimv'
     " let g:slimv_lisp = '/usr/local/bin/scheme'
@@ -74,20 +76,21 @@ autocmd FileType python setlocal completeopt-=preview
     " let g:pandoc#modules#disabled = ["folding"]
     " let g:pandoc#syntax#conceal#use = 0
 
-Bundle 'klen/python-mode'
-    let g:pymode_lint = 1
-    " let g:pymode_lint_on_write = 0
-    " let g:pymode_lint_ignore = ""
-    let g:pymode_lint_message = 1
-    let g:pymode_lint_cwindow = 0
-    let g:pymode_rope_rename_bind = "<leader>cr"
-    let g:pymode_options_max_line_length = 80
-    let g:pymode_folding = 0
-    let g:pymode_doc = 0
-    let g:pymode_doc_bind = 'K'
-    let g:pymode_trim_whitespaces = 0
-    let g:pymode_breakpoint = 0
-    let g:pymode_breakpoint_bind = '<leader>dldb'
+" Doesn't seem to work in nvim
+" Bundle 'klen/python-mode'
+    " let g:pymode_lint = 1
+    " " let g:pymode_lint_on_write = 0
+    " " let g:pymode_lint_ignore = ""
+    " let g:pymode_lint_message = 1
+    " let g:pymode_lint_cwindow = 0
+    " let g:pymode_rope_rename_bind = "<leader>cr"
+    " let g:pymode_options_max_line_length = 80
+    " let g:pymode_folding = 0
+    " let g:pymode_doc = 0
+    " let g:pymode_doc_bind = 'K'
+    " let g:pymode_trim_whitespaces = 0
+    " let g:pymode_breakpoint = 0
+    " let g:pymode_breakpoint_bind = '<leader>dldb'
 
 
 " NAVIGATION
@@ -117,6 +120,7 @@ Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'h1mesuke/unite-outline'
     let g:unite_winheight=12
+Bundle "ludovicchabant/vim-gutentags"
 
 
 " UI
@@ -125,7 +129,7 @@ Bundle 'CSApprox'
 Bundle 'altercation/vim-colors-solarized'
     let g:solarized_termcolors=256
 Bundle 'junegunn/seoul256.vim'
-    let g:seoul256_background = 213
+    let g:seoul256_background = 203
 Bundle 'morhetz/gruvbox'
     if !has("gui_running")
         let g:gruvbox_italic=0
@@ -393,9 +397,10 @@ noh
 " Custom Scripts
 " ==============
 function! Ctags()
-    !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.min.js
-    !ctags -R --python-kinds=-i -a $VIRTUAL_ENV/lib/python2.7/site-packages/* --exclude=.git --exclude=node_modules --exclude=*.min.js
+    " !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.min.js
+    !ctags -f $VIRTUAL_ENV/lib/python2.7/site-packages/tags $VIRTUAL_ENV/lib/python2.7/site-packages/*
 endfunction
+set tags=tags,$VIRTUAL_ENV/lib/python2.7/site-packages/tags
 nnoremap <leader>ct :call Ctags()<CR>
 
 " function! Browse
@@ -405,21 +410,45 @@ command! -bar -nargs=1 Browse silent! exe '!firefox' shellescape(<q-args>, 1)
 " Use ranger as vim file manager
 " ==============================
 function! Ranger()
-    " Get a temp file name without creating it
-    let tmpfile = substitute(system('mktemp -u'), '\n', '', '')
-    " Launch ranger, passing it the temp file name
-    silent exec '!RANGER_RETURN_FILE='.tmpfile.' ranger'
-    " If the temp file has been written by ranger
-    if filereadable(tmpfile)
-        " Get the selected file name from the temp file
-        let filetoedit = system('cat '.tmpfile)
-        exec 'edit '.filetoedit
-        call delete(tmpfile)
+    let temp = tempname()
+    exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    if !filereadable(temp)
+        redraw!
+        " Nothing to read.
+        return
     endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        " Nothing to open.
+        return
+    endif
+    " Edit the first item.
+    exec 'edit ' . fnameescape(names[0])
+    " Add any remaning items to the arg list/buffer list.
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
     redraw!
 endfunction
 
-" nmap <leader>rr :call Ranger()<CR>
+" function! Ranger()
+    " " Get a temp file name without creating it
+    " let tmpfile = substitute(system('mktemp -u'), '\n', '', '')
+    " " Launch ranger, passing it the temp file name
+    " silent exec '!RANGER_RETURN_FILE='.tmpfile.' ranger'
+    " " If the temp file has been written by ranger
+    " if filereadable(tmpfile)
+        " " Get the selected file name from the temp file
+        " let filetoedit = system('cat '.tmpfile)
+        " exec 'edit '.filetoedit
+        " call delete(tmpfile)
+    " endif
+    " redraw!
+" endfunction
+
+" nmap <leader>ra :call Ranger()<CR>
+nnoremap <leader>ra :call Ranger()<CR>
 
 
 " Append alphanumeric string
