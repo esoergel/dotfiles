@@ -1,0 +1,10 @@
+--recurse=yes
+
+--exclude=.git
+--exclude=.pyx
+--exclude=*.min.js
+--exclude=*-min.js
+--exclude=node_modules
+--exclude=jquery*.js
+
+--python-kinds=-i
