@@ -10,32 +10,16 @@ function apt-update() {
     sudo apt-get dist-upgrade -y
     sudo apt-get autoremove -y
 }
-function show-branches-long() {
-    for BRANCH in `git br | grep -v '\\*'`
-    do
-        echo "$(tput rev)$BRANCH$(tput sgr0)"\
-        $(git log $BRANCH -1\
-        --pretty="
-            %C(yellow)%s
-            <break>
-            %C(magenta)%ad
-            %C(blue) [%cn]
-            %C(green)%h
-            %C(red)%d
-            %C(reset)
-            <break>
-        " --source\
-        ) | sed 's/<break>/\n/g'
-    done
-}
+
 function show-branches() {
-    for BRANCH in `git br | grep -v '\\*'`
+    for BRANCH in `git branch | grep -v '\\*'`
     do
         echo $(git log $BRANCH -1\
         --pretty="
             %C(magenta)%ad
             %C(reset)<name>
             %C(yellow)%s
+            %C(red)%d
             %C(reset)
         ") | sed "s/<name>/$BRANCH -/g"
     done
