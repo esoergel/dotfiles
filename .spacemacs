@@ -31,12 +31,11 @@
  ;; List of themes, the first of the list is loaded when spacemacs starts.
  ;; Press <SPC> T n to cycle to the next theme in the list (works great
  ;; with 2 themes variants, one dark and one light)
- dotspacemacs-themes '(sanityinc-tomorrow-eighties
-                       sanityinc-tomorrow-day
-                       solarized-light
-                       solarized-dark
-                       leuven
+ dotspacemacs-themes '(;;base16-eighties
+                       ;;base16-default
                        monokai
+                       solarized-dark
+                       solarized-light
                        zenburn)
  ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
  ;; size to make separators look not too crappy.

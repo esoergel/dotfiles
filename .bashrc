@@ -144,6 +144,11 @@ shopt -s histappend
 HISTSIZE=1000000
 HISTFILESIZE=1000000
 
-export PATH=$PATH:~/bin
+export PATH="$PATH:~/bin:~/.cabal/bin:"
+# "/home/ethan/anaconda/bin"  # anacondas is naughty with my namespace
 
-export EDITOR='vim'
+export EDITOR='nvim'
+alias vim=nvim
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

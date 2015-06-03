@@ -1,0 +1,9 @@
+# .pairs - configuration for 'git pair'
+# $ sudo gem install pivotal_git_scripts                      
+pairs:
+  # <initials>: <Firstname> <Lastname>[; <email-id>]
+  es: Ethan Soergel; esoergel
+  tw: Tyler Wymer; twymer
+email:
+  domain: dimagi.com
+#global: true

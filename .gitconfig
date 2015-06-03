@@ -15,6 +15,9 @@
     # remove all branches merged in to HEAD
     trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
+    # list branches
+    lb = "!git branch | grep -v '\\*' | xargs -n 1 git log -1 --pretty=oneline"
+
     # LOG SHORTCUTS
     # colors: normal, black, red, green, yellow, blue, magenta, cyan and white
     # attributes: bold, dim, ul, blink and reverse.
@@ -41,18 +44,18 @@
 %C(magenta)%ad \
 %C(blue)[%an] \
 %C(green)%h \
-%Cred%d \
+%C(red)%d \
 %n\
 %C(yellow)%s \
 %n%b \
-%Creset"
+%C(reset)"
     oneliner = "\
 %C(magenta)%ad\
-%Cblue [%cn] \
+%C(blue) [%cn] \
 %C(green)%h \
 %C(yellow)%s\
-%Cred%d\
-%Creset"
+%C(red)%d\
+%C(reset)"
 [format]
     pretty = cute
 [log]

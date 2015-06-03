@@ -22,8 +22,7 @@ root: ~/Dimagi/commcare-hq
 windows:
   - editor:
     - we
-    - git br
-    - git st
+    - clear
   - couchdb:
     - couchdb
   - elastic:
@@ -33,9 +32,10 @@ windows:
     - dj run_ptop --pillow-key=core
   - celery:
     - we
-    - dj celeryd --traceback -P gevent --verbosity=2 --beat --statedb=celery.db --events
+    - dj celery worker --loglevel=info --statedb=celery.db -Q celery,background_queue
   - server:
     - we
     - djrunserver
   - working:
     - we
+    - clear

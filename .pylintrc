@@ -8,6 +8,9 @@
 # pygtk.require().
 #init-hook=
 
+# Use multiple processes to speed up Pylint
+jobs=4
+
 # Profiled execution.
 profile=no
 
@@ -84,12 +87,6 @@ disable = R0201, W0232, R0903, C0103, E1002, C0111, W0141
 # (visual studio) and html. You can also give a reporter class, eg
 # mypackage.mymodule.MyReporterClass.
 output-format=text
-
-# Include message's id in output
-include-ids=no
-
-# Include symbolic ids of messages in output
-symbols=no
 
 # Put messages in a separate file for each module / package specified on the
 # command line instead of printing them on stdout. Reports (if any) will be

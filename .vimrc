@@ -35,7 +35,9 @@ Bundle 'haya14busa/incsearch.vim'
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
     map g/ <Plug>(incsearch-stay)
-
+Bundle 'terryma/vim-expand-region'
+    vmap v <Plug>(expand_region_expand)
+    vmap <C-v> <Plug>(expand_region_shrink)
 " Auto-detect indentation
 Bundle 'tpope/vim-sleuth'
 Bundle 'scrooloose/nerdcommenter'
@@ -94,11 +96,14 @@ Bundle 'klen/python-mode'
 
 
 " NAVIGATION
+" Bundle 'Numkil/ag.nvim'  # cool, but doesn't support -w flag
 Bundle 'rking/ag.vim'
   let g:agprg="ag --column --smart-case"
   let g:aghighlight=1
 " Sublime Text style multiple selection
 Bundle 'terryma/vim-multiple-cursors'
+  let g:multi_cursor_exit_from_insert_mode=0
+  let g:multi_cursor_exit_from_visual_mode=0
 Bundle 'majutsushi/tagbar'
     let g:tagbar_sort = 0
 Bundle 'tagexplorer.vim'
@@ -156,9 +161,9 @@ set background=dark
 " colorscheme solarized
 " colorscheme desert
 " colorscheme gruvbox
-colorscheme seoul256
+" colorscheme seoul256
 " if has("gui_running")
-" colorscheme Tomorrow-Night-Eighties
+colorscheme Tomorrow-Night-Eighties
 " endif
 " colorscheme seoul256-light
 " colorscheme elflord
@@ -243,9 +248,9 @@ map <leader>gd :Gvdiff<space>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :Gwrite<CR>
 
-map <leader>y "vy
-map <leader>p "vp
-map <leader>P "vP
+map <leader>y "+y
+map <leader>p "+p
+map <leader>P "+P
 
 " File searching
 map <leader>o :CtrlP<CR>
@@ -257,7 +262,7 @@ call unite#custom#profile('default', 'context', {
 \   'winheight': 10,
 \   'direction': 'botright',
 \ })
-nnoremap <leader>p :<C-u>Unite -start-insert file_rec/async:!<CR>
+" nnoremap <leader>p :<C-u>Unite -start-insert file_rec/async:!<CR>
 " consider moving split and vsplit to <leader>ws (and wv)
 
 " Use ag for search
