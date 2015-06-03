@@ -54,8 +54,8 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
     let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
-    " let g:syntastic_python_checkers=['python']
-    let g:syntastic_python_checkers=['flake8']
+    let g:syntastic_python_checkers=['python']
+    " let g:syntastic_python_checkers=['flake8']
     " let g:syntastic_python_checkers=['pylint']
     " let g:syntastic_python_pylint_exec='~/virtualenvs/hq3/bin/pylint'
     let g:syntastic_javascript_checkers=['jshint']
@@ -77,20 +77,20 @@ autocmd FileType python setlocal completeopt-=preview
     " let g:pandoc#syntax#conceal#use = 0
 
 " Doesn't seem to work in nvim
-" Bundle 'klen/python-mode'
-    " let g:pymode_lint = 1
-    " " let g:pymode_lint_on_write = 0
-    " " let g:pymode_lint_ignore = ""
-    " let g:pymode_lint_message = 1
-    " let g:pymode_lint_cwindow = 0
-    " let g:pymode_rope_rename_bind = "<leader>cr"
-    " let g:pymode_options_max_line_length = 80
-    " let g:pymode_folding = 0
-    " let g:pymode_doc = 0
-    " let g:pymode_doc_bind = 'K'
-    " let g:pymode_trim_whitespaces = 0
-    " let g:pymode_breakpoint = 0
-    " let g:pymode_breakpoint_bind = '<leader>dldb'
+Bundle 'klen/python-mode'
+    let g:pymode_lint = 1
+    " let g:pymode_lint_on_write = 0
+    " let g:pymode_lint_ignore = ""
+    let g:pymode_lint_message = 1
+    let g:pymode_lint_cwindow = 0
+    let g:pymode_rope_rename_bind = "<leader>cr"
+    let g:pymode_options_max_line_length = 80
+    let g:pymode_folding = 0
+    let g:pymode_doc = 0
+    let g:pymode_doc_bind = 'K'
+    let g:pymode_trim_whitespaces = 0
+    let g:pymode_breakpoint = 0
+    let g:pymode_breakpoint_bind = '<leader>dldb'
 
 
 " NAVIGATION
