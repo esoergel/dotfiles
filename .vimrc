@@ -27,8 +27,12 @@ Bundle 'Gundo'
     let g:gundo_width = 40
     let g:gundo_preview_height = 40
     let g:gundo_right = 0
+" tab completion
 Bundle 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
+" Bundle 'Shougo/neocomplete.vim'
+" Bundle 'Valloric/YouCompleteMe'
+
 " Bundle 'Raimondi/delimitMate'
 " Bundle 'vim-scripts/paredit.vim'
 Bundle 'haya14busa/incsearch.vim'
@@ -56,10 +60,10 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
     let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
-    let g:syntastic_python_checkers=['python']
+    " let g:syntastic_python_checkers=['python']
     " let g:syntastic_python_checkers=['flake8']
-    " let g:syntastic_python_checkers=['pylint']
-    " let g:syntastic_python_pylint_exec='~/virtualenvs/hq3/bin/pylint'
+    " let g:syntastic_python_checkers=['pylint', 'python']
+    let g:syntastic_python_pylint_exec='~/virtualenvs/hq3/bin/pylint'
     let g:syntastic_javascript_checkers=['jshint']
 " Bundle 'kovisoft/slimv'
     " let g:slimv_lisp = '/usr/local/bin/scheme'
@@ -78,7 +82,6 @@ autocmd FileType python setlocal completeopt-=preview
     " let g:pandoc#modules#disabled = ["folding"]
     " let g:pandoc#syntax#conceal#use = 0
 
-" Doesn't seem to work in nvim
 Bundle 'klen/python-mode'
     let g:pymode_lint = 1
     " let g:pymode_lint_on_write = 0
@@ -153,6 +156,12 @@ Bundle 'chriskempson/base16-vim'
     let base16colorspace=256
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'osyo-manga/vim-brightest'
+Bundle 'kien/rainbow_parentheses.vim'
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+    au Syntax * RainbowParenthesesLoadChevrons
 
 " Eigengrau is #16161D, (22, 22, 29)
 " (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
@@ -160,10 +169,10 @@ Bundle 'osyo-manga/vim-brightest'
 set background=dark
 " colorscheme solarized
 " colorscheme desert
-" colorscheme gruvbox
+colorscheme gruvbox
 " colorscheme seoul256
 " if has("gui_running")
-colorscheme Tomorrow-Night-Eighties
+" colorscheme Tomorrow-Night-Eighties
 " endif
 " colorscheme seoul256-light
 " colorscheme elflord
@@ -295,6 +304,18 @@ nnoremap Q <Nop>
 
 vnoremap <silent> <Leader>0 :!python<cr>
 
+" Terminal Mode Bindings
+" ======================
+:tnoremap <Esc> <C-\><C-n>
+" Move between windows with alt+hjkl
+:tnoremap <A-h> <C-\><C-n><C-w>h
+:tnoremap <A-j> <C-\><C-n><C-w>j
+:tnoremap <A-k> <C-\><C-n><C-w>k
+:tnoremap <A-l> <C-\><C-n><C-w>l
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
 
 " Syntax
 " ======
@@ -337,6 +358,7 @@ set whichwrap+=<,>,h,l,[,]
 
 set hlsearch
 nnoremap <silent> \ :noh<CR>
+nnoremap <silent> <leader>sc :noh<CR>
 set incsearch              " start looking for search matches while typing
 set showcmd
 set wrapscan               " wrap search at the end of the document
