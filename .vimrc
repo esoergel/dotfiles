@@ -2,49 +2,46 @@
 
 set nocompatible
 
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-
 " http://www.reddit.com/r/vim/comments/1424b3/what_do_you_need_mostfirst_when_starting_in_a_new/
 
 " PLUGINS
 " =======
+call plug#begin('~/.vim/plugged')
+
 " To check out:
-Bundle 'tpope/vim-unimpaired'
-" Bundle 'vim-fuzzyfinder'
+Plug 'tpope/vim-unimpaired'
+" Plug 'vim-fuzzyfinder'
 " command T
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-sensible'
+Plug 'gmarik/vundle'
+Plug 'tpope/vim-sensible'
 
 
 " EDITING
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'Gundo'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'Gundo'
     let g:gundo_width = 40
     let g:gundo_preview_height = 40
     let g:gundo_right = 0
 " tab completion
-Bundle 'ervandew/supertab'
+Plug 'ervandew/supertab'
     let g:SuperTabDefaultCompletionType = "context"
-" Bundle 'Shougo/neocomplete.vim'
-" Bundle 'Valloric/YouCompleteMe'
+" Plug 'Shougo/neocomplete.vim'
+" Plug 'Valloric/YouCompleteMe'
 
-" Bundle 'Raimondi/delimitMate'
-" Bundle 'vim-scripts/paredit.vim'
-Bundle 'haya14busa/incsearch.vim'
+" Plug 'Raimondi/delimitMate'
+" Plug 'vim-scripts/paredit.vim'
+Plug 'haya14busa/incsearch.vim'
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
     map g/ <Plug>(incsearch-stay)
-Bundle 'terryma/vim-expand-region'
+Plug 'terryma/vim-expand-region'
     vmap v <Plug>(expand_region_expand)
     vmap <C-v> <Plug>(expand_region_shrink)
 " Auto-detect indentation
-Bundle 'tpope/vim-sleuth'
-Bundle 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-sleuth'
+Plug 'scrooloose/nerdcommenter'
     let NERDCommentWholeLinesInVMode=1
     let NERDSpaceDelims=1
     let NERDRemoveExtraSpaces=1
@@ -57,7 +54,7 @@ Bundle 'scrooloose/nerdcommenter'
 
 
 " CODE
-Bundle 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
     let g:syntastic_haskell_checkers=['ghc_mod']
     " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
     " let g:syntastic_python_checkers=['python']
@@ -65,24 +62,24 @@ Bundle 'scrooloose/syntastic'
     " let g:syntastic_python_checkers=['pylint', 'python']
     let g:syntastic_python_pylint_exec='~/virtualenvs/hq3/bin/pylint'
     let g:syntastic_javascript_checkers=['jshint']
-" Bundle 'kovisoft/slimv'
+" Plug 'kovisoft/slimv'
     " let g:slimv_lisp = '/usr/local/bin/scheme'
     " let g:scheme_builtin_swank = 1
     " let g:slimv_impl = 'imit'
-" Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'othree/html5.vim'
-Bundle 'othree/xml.vim'
-Bundle 'groenewege/vim-less'
-Bundle 'fs111/pydoc.vim'
-" Bundle 'davidhalter/jedi-vim'
+" Plug 'hynek/vim-python-pep8-indent'
+Plug 'othree/html5.vim'
+Plug 'othree/xml.vim'
+Plug 'groenewege/vim-less'
+Plug 'fs111/pydoc.vim'
+" Plug 'davidhalter/jedi-vim'
 " Don't popup docstring window
 autocmd FileType python setlocal completeopt-=preview
-" Bundle 'vim-pandoc/vim-pandoc'
-" Bundle 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
     " let g:pandoc#modules#disabled = ["folding"]
     " let g:pandoc#syntax#conceal#use = 0
 
-Bundle 'klen/python-mode'
+Plug 'klen/python-mode'
     let g:pymode_lint = 1
     " let g:pymode_lint_on_write = 0
     " let g:pymode_lint_ignore = ""
@@ -99,19 +96,19 @@ Bundle 'klen/python-mode'
 
 
 " NAVIGATION
-" Bundle 'Numkil/ag.nvim'  # cool, but doesn't support -w flag
-Bundle 'rking/ag.vim'
+" Plug 'Numkil/ag.nvim'  # cool, but doesn't support -w flag
+Plug 'rking/ag.vim'
   let g:agprg="ag --column --smart-case"
   let g:aghighlight=1
 " Sublime Text style multiple selection
-Bundle 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
   let g:multi_cursor_exit_from_insert_mode=0
   let g:multi_cursor_exit_from_visual_mode=0
-Bundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
     let g:tagbar_sort = 0
-Bundle 'tagexplorer.vim'
-Bundle 'tpope/vim-vinegar'
-Bundle 'scrooloose/nerdtree'
+Plug 'tagexplorer.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'scrooloose/nerdtree'
     " Auto close NERDTree
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
     let NERDTreeIgnore=[
@@ -119,7 +116,7 @@ Bundle 'scrooloose/nerdtree'
         \ '\.pyc$',
         \ ]
     let g:NERDTreeMapUpdirKeepOpen = "-"
-Bundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
     let g:ctrlp_root_markers=['.git/']
     let g:ctrlp_use_caching = 0
     if executable('ag')
@@ -131,37 +128,46 @@ Bundle 'kien/ctrlp.vim'
         \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
         \ }
     endif
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'chrisbra/NrrwRgn'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'chrisbra/NrrwRgn'
     let g:nrrw_rgn_vert = 1
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'h1mesuke/unite-outline'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'h1mesuke/unite-outline'
     let g:unite_winheight=12
-Bundle "ludovicchabant/vim-gutentags"
+Plug 'ludovicchabant/vim-gutentags'
 
 
 " UI
-Bundle 'CSApprox'
-" Bundle 'bling/vim-airline'
-Bundle 'altercation/vim-colors-solarized'
+Plug 'CSApprox'
+" Plug 'bling/vim-airline'
+Plug 'altercation/vim-colors-solarized'
     let g:solarized_termcolors=256
-Bundle 'junegunn/seoul256.vim'
+Plug 'junegunn/seoul256.vim'
     let g:seoul256_background = 203
-Bundle 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
     if !has("gui_running")
         let g:gruvbox_italic=0
     endif
-Bundle 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
     let base16colorspace=256
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'osyo-manga/vim-brightest'
-Bundle 'kien/rainbow_parentheses.vim'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'osyo-manga/vim-brightest'
+Plug 'kien/rainbow_parentheses.vim'
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
     au Syntax * RainbowParenthesesLoadChevrons
+
+" GIT
+let g:github_user = 'esoergel'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim' | Plug 'mmozuras/vim-github-comment'
+
+call plug#end()
 
 " Eigengrau is #16161D, (22, 22, 29)
 " (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
@@ -177,25 +183,6 @@ colorscheme gruvbox
 " colorscheme seoul256-light
 " colorscheme elflord
 
-
-
-" GIT
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'mmozuras/vim-github-comment'
-Bundle 'mattn/gist-vim'
-Bundle 'mattn/webapi-vim.git'
-    let g:github_user = 'esoergel'
-
-
-" Bundle commands
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
 
 " Mappings
 " ========
