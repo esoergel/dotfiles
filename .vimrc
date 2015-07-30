@@ -19,6 +19,9 @@ Plug 'tpope/vim-sensible'
 
 " EDITING
 Plug 'tpope/vim-surround'
+    let b:surround_{char2nr("{")} = "{{ \r }}"
+    let b:surround_{char2nr("%")} = "{% \r %}"
+    let b:surround_{char2nr("x")} = "{% trans \"\r\" %}"
 Plug 'tpope/vim-repeat'
 Plug 'Gundo'
     let g:gundo_width = 40
@@ -80,7 +83,7 @@ autocmd FileType python setlocal completeopt-=preview
     " let g:pandoc#syntax#conceal#use = 0
 
 Plug 'klen/python-mode'
-    let g:pymode_lint = 1
+    let g:pymode_lint = 0
     " let g:pymode_lint_on_write = 0
     " let g:pymode_lint_ignore = ""
     let g:pymode_lint_message = 1
@@ -332,6 +335,7 @@ endif
 
 set cursorline
 set cursorcolumn
+set colorcolumn=80
 
 set number                 " show line numbers
 set ignorecase
