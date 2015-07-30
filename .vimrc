@@ -57,19 +57,6 @@ Plug 'scrooloose/nerdcommenter'
 
 
 " CODE
-Plug 'scrooloose/syntastic'
-    let g:syntastic_haskell_checkers=['ghc_mod']
-    " let g:syntastic_haskell_ghc_mod_exec = '~/.cabal/bin/ghc-mod'
-    " let g:syntastic_python_checkers=['python']
-    " let g:syntastic_python_checkers=['flake8']
-    " let g:syntastic_python_checkers=['pylint', 'python']
-    let g:syntastic_python_pylint_exec='~/virtualenvs/hq3/bin/pylint'
-    let g:syntastic_javascript_checkers=['jshint']
-" Plug 'kovisoft/slimv'
-    " let g:slimv_lisp = '/usr/local/bin/scheme'
-    " let g:scheme_builtin_swank = 1
-    " let g:slimv_impl = 'imit'
-" Plug 'hynek/vim-python-pep8-indent'
 Plug 'othree/html5.vim'
 Plug 'othree/xml.vim'
 Plug 'groenewege/vim-less'
@@ -81,6 +68,28 @@ autocmd FileType python setlocal completeopt-=preview
 " Plug 'vim-pandoc/vim-pandoc-syntax'
     " let g:pandoc#modules#disabled = ["folding"]
     " let g:pandoc#syntax#conceal#use = 0
+Plug 'benekastah/neomake'
+    autocmd! BufWritePost,BufReadPost * Neomake
+    " ['python', 'frosted', 'pylama', 'flake8', 'pyflakes', 'pep8']
+    " flake8 = pyflakes + pep8 + more
+    let g:neomake_python_enabled_makers = ['python', 'pylama', 'pylint']
+    " let g:neomake_python_pylint_exe = '/home/ethan/virtualenvs/hq3/bin/pylint'
+    let g:neomake_error_sign={
+        \ 'text': '>>',
+        \ 'texthl': 'WarningMsg',
+        \ }
+    let g:neomake_warning_sign={
+        \ 'text': '->',
+        \ 'texthl': 'MoreMsg',
+        \ }
+    let g:neomake_python_pylama_maker={
+        \ 'exe': 'pylama',
+        \ 'args': ['--ignore', 'E501'],
+        \ }
+    let g:neomake_python_mccabe_maker={
+        \ 'exe': 'pylama',
+        \ 'args': ['--linters', 'mccabe'],
+        \ }
 
 Plug 'klen/python-mode'
     let g:pymode_lint = 0
