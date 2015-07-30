@@ -128,18 +128,7 @@ Plug 'scrooloose/nerdtree'
         \ '\.pyc$',
         \ ]
     let g:NERDTreeMapUpdirKeepOpen = "-"
-Plug 'kien/ctrlp.vim'
-    let g:ctrlp_root_markers=['.git/']
-    let g:ctrlp_use_caching = 0
-    if executable('ag')
-        set grepprg=ag\ --nogroup\ --nocolor
-        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    else
-      let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-      let g:ctrlp_prompt_mappings = {
-        \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-        \ }
-    endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'Lokaltog/vim-easymotion'
 Plug 'chrisbra/NrrwRgn'
     let g:nrrw_rgn_vert = 1
@@ -232,7 +221,6 @@ iabbrev ppj import json; print json.dumps(, indent=4)
 
 map <leader>/ <leader>c<space>
 map <leader>a :Ag<space>
-map <leader>b :CtrlPBuffer<CR>
 map <leader>e :Tagbar<CR>
 
 nnoremap <leader>fp 0f(a<CR><Esc>k0f(%i<CR><Esc>kV:s/, /,\r/g<CR>vib=k$%<<
@@ -260,8 +248,34 @@ map <leader>y "+y
 map <leader>p "+p
 map <leader>P "+P
 
-" File searching
-map <leader>o :CtrlP<CR>
+" File searching and FZF stuff
+map <leader>o :FZF<CR>
+"
+" List of buffers
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <leader>b :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
+\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
+\   'sink':   'tag',
+\ }) | else | echo 'Preparing tags' | call system('ctags -R') | FZFTag | endif
+nnoremap <leader>ta :FZFTags<CR>
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec/async','sorters','sorter_rank')
@@ -279,12 +293,11 @@ if executable('ag')
     let g:unite_source_grep_default_opts = '-f --nogroup --nocolor --column'
     let g:unite_source_grep_recursive_opt = ''
 endif
-nnoremap <Leader>s :Unite -no-quit -keep-focus grep:.<cr>
-nnoremap <Leader>f :Unite -no-quit -keep-focus grep:
+nnoremap <leader>s :Unite -no-quit -keep-focus grep:.<cr>
+nnoremap <leader>f :Unite -no-quit -keep-focus grep:
 
 map <leader>s :w<CR>
 map <leader>rt :r!./manage.py test 
-map <leader>ta :CtrlPTag<CR>
 map <leader>tt :tag<CR>
 map <leader>tl :tselect<CR>
 map <leader>tp :pop<CR>
