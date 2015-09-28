@@ -27,6 +27,10 @@
     lsn = log --stat HEAD --graph --not
     lsnm = log --stat HEAD --not origin/master --graph
 
+    # Show files changed from origin/master
+    changed = "!branch=$(git rev-parse --abbrev-ref HEAD);\
+               git diff --stat $branch $(git merge-base $branch origin/master)"
+
     # from mwhite's gitconf:
     #show log with full diffs
     lpn = log -p HEAD --not  

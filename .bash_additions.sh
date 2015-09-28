@@ -14,7 +14,7 @@ function apt-update() {
 function show-branches() {
     for BRANCH in `git branch | grep -v '\\*'`
     do
-        echo $(git log $BRANCH -1\
+        echo $(git show --no-patch $BRANCH\
         --pretty="
             %C(magenta)%ad
             %C(reset)<name>
@@ -39,9 +39,20 @@ function pull-latest-masters() {
 }
 function update-code() {
     git checkout master
-    git pull origin master
+    git fetch origin
+    git merge origin/master
     git submodule update --init --recursive
     pyc-purge
+}
+
+function current-branch() {
+    git rev-parse --abbrev-ref HEAD
+}
+
+function files-changed() {
+    branch=$(current-branch) 
+    last_commit=$(git merge-base $branch origin/master)
+    git diff --stat $branch $last_commit
 }
 
 # Mechanical Turk
