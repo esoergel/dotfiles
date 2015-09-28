@@ -55,6 +55,21 @@ function files-changed() {
     git diff --stat $branch $last_commit
 }
 
+# PR current branch
+function PR() {
+    branch=$(current-branch) 
+    origin_url=$(git config --get remote.origin.url)
+    origin=$(python -c "import re; print re.split('[:/]', '$origin_url')[-2]")
+    if [ $branch == "master" ]
+    then 
+        echo "You're on master, you big dummy!"
+    else
+        echo "PRing $branch to $origin_url"
+        git push origin $branch
+        hub pull-request -b $origin:master -h $origin:$branch
+    fi
+}
+
 # Mechanical Turk
 export MTURK_CMD_HOME=/home/ethan/libs/aws-mturk-clt-1.3.1
 export JAVA_HOME=/usr/
