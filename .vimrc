@@ -54,6 +54,7 @@ Plug 'scrooloose/nerdcommenter'
           \ },
         \ 'lisp': { 'left': ';;'},
       \ }
+Plug 'karlbright/qfdo.vim'
 
 
 " CODE
@@ -97,7 +98,13 @@ Plug 'klen/python-mode'
     " let g:pymode_lint_ignore = ""
     let g:pymode_lint_message = 1
     let g:pymode_lint_cwindow = 0
-    let g:pymode_rope_rename_bind = "<leader>cr"
+    " https://github.com/python-rope/rope/blob/master/docs/overview.rst
+    let g:pymode_rope = 1
+    let g:pymode_rope_rename_bind = "<leader>rr"
+    let g:pymode_rope_autoimport_bind = "<leader>ri"
+    let g:pymode_rope_organize_imports_bind = '<leader>roi'
+    let g:pymode_rope_extract_method_bind = '<leader>rm'
+    let g:pymode_rope_extract_variable_bind = '<leader>rv'
     let g:pymode_options_max_line_length = 80
     let g:pymode_folding = 0
     let g:pymode_doc = 0
@@ -108,7 +115,7 @@ Plug 'klen/python-mode'
 
 
 " NAVIGATION
-" Plug 'Numkil/ag.nvim'  # cool, but doesn't support -w flag
+" Plug 'Numkil/ag.nvim'
 Plug 'rking/ag.vim'
   let g:agprg="ag --column --smart-case"
   let g:aghighlight=1
@@ -250,26 +257,21 @@ map <leader>P "+P
 
 " File searching and FZF stuff
 map <leader>o :FZF<CR>
-"
-" List of buffers
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
 
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+function! s:all_recent_files()
+  return extend(
+  \ filter(copy(v:oldfiles),
+  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
 nnoremap <silent> <leader>b :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+\ 'source':  reverse(<sid>all_recent_files()),
+\ 'sink':    'edit',
+\ 'options': '-m -x +s',
+\ 'down':    '40%' })<CR>
 
+" Ctags searching
 command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
 \   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
 \   'sink':   'tag',
@@ -556,7 +558,7 @@ for i, line in enumerate(lines):
     buf[line1+i-1] = process_line(line, i)
 EOF
 endfunction
-vnoremap <Leader>rr :call RandReplace()<cr>
+vnoremap <Leader>Rr :call RandReplace()<cr>
 
 function! SearchForString()
     :let [line1, col1] = searchpos("\\<", "bcn")
