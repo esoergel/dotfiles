@@ -1,9 +1,3 @@
-# virtualenvwrapper stuff
-export WORKON_HOME=~/virtualenvs
-export PROJECT_HOME=$HOME/web_dev
-alias setvenv='source $WORKON_HOME/setvenv'
-# source /usr/local/bin/virtualenvwrapper.sh
-
 function apt-update() {
     sudo apt-get update -y
     sudo apt-get upgrade -y
@@ -37,6 +31,7 @@ function pull-latest-masters() {
     until [ -z "$(ps aux | grep '[g]it pull')" ]; do sleep 1; done
     pyc-purge
 }
+
 function update-code() {
     git checkout master
     git fetch origin
@@ -49,19 +44,22 @@ function current-branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
+function merge-base() {
+    "The commit where this branch forked off of master"
+    git merge-base `current-branch` origin/master
+}
+
 function files-changed() {
-    branch=$(current-branch) 
-    last_commit=$(git merge-base $branch origin/master)
-    git diff --stat $branch $last_commit
+    git diff --stat `merge-base`
 }
 
 # PR current branch
 function PR() {
-    branch=$(current-branch) 
+    branch=$(current-branch)
     origin_url=$(git config --get remote.origin.url)
     origin=$(python -c "import re; print re.split('[:/]', '$origin_url')[-2]")
     if [ $branch == "master" ]
-    then 
+    then
         echo "You're on master, you big dummy!"
     else
         echo "PRing $branch to $origin_url"
@@ -70,12 +68,6 @@ function PR() {
     fi
 }
 
-# Mechanical Turk
-export MTURK_CMD_HOME=/home/ethan/libs/aws-mturk-clt-1.3.1
-export JAVA_HOME=/usr/
-
-source ~/.tmuxinator/tmuxinator.bash
-source ~/libs/django_bash_completion.sh
-
-alias brew=~/.linuxbrew/bin/brew
-# export PATH='/home/ethan/.linuxbrew/bin:$PATH'
+function slack-slay() {
+    ps aux | grep slac[k] | awk '{print $2}' | xargs kill -9
+}

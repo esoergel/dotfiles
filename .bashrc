@@ -135,7 +135,23 @@ if ! shopt -oq posix; then
 fi
 
 
+# virtualenvwrapper stuff
+export WORKON_HOME=~/virtualenvs
+export PROJECT_HOME=$HOME/web_dev
+alias setvenv='source $WORKON_HOME/setvenv'
 # source /usr/local/bin/virtualenvwrapper.sh
+
+
+# Mechanical Turk
+export MTURK_CMD_HOME=/home/ethan/libs/aws-mturk-clt-1.3.1
+export JAVA_HOME=/usr/
+
+source ~/.tmuxinator/tmuxinator.bash
+source ~/libs/django_bash_completion.sh
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+alias brew=~/.linuxbrew/bin/brew
+# export PATH='/home/ethan/.linuxbrew/bin:$PATH'
 
 # from http://mrgris.com/blog/2013-06-16-command-line-history-done-right/
 export PROMPT_COMMAND="history -a"
@@ -149,6 +165,8 @@ export PATH="$PATH:~/bin:~/.cabal/bin:"
 
 export EDITOR='nvim'
 alias vim=nvim
+
+alias lessc=/usr/lib/node_modules/less/bin/lessc
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
