@@ -106,22 +106,6 @@ fi
 #alias la='ls -A'
 #alias l='ls -CF'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases.sh, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases.sh ]; then
-    . ~/.bash_aliases.sh
-fi
-
-if [ -f ~/.bash_additions.sh ]; then
-    . ~/.bash_additions.sh
-fi
-
-if [ -f ~/.bashmarks.sh ]; then
-    . ~/.bashmarks.sh
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -146,9 +130,20 @@ alias setvenv='source $WORKON_HOME/setvenv'
 export MTURK_CMD_HOME=/home/ethan/libs/aws-mturk-clt-1.3.1
 export JAVA_HOME=/usr/
 
-source ~/.tmuxinator/tmuxinator.bash
-source ~/libs/django_bash_completion.sh
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+for SCRIPT in \
+      ~/.tmuxinator/tmuxinator.bash \
+      ~/libs/django_bash_completion.sh \
+      ~/.fzf.bash \
+      ~/.bashmarks.sh \
+      ~/.bash_aliases.sh \
+      ~/git_scripts.sh \
+
+  do
+    if [ -f $SCRIPT ]; then
+        source $SCRIPT
+    fi
+  done
 
 alias brew=~/.linuxbrew/bin/brew
 # export PATH='/home/ethan/.linuxbrew/bin:$PATH'
