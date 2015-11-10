@@ -12,10 +12,10 @@ function show-branches() {
     done
 }
 
-# git code updates
 function pyc-purge() {
     find . -name '*.pyc' -delete
 }
+
 function pull-latest-masters() {
     git checkout master
     git pull origin master
@@ -31,19 +31,6 @@ function update-code() {
     git merge origin/master
     git submodule update --init --recursive
     pyc-purge
-}
-
-function current-branch() {
-    git rev-parse --abbrev-ref HEAD
-}
-
-function merge-base() {
-    "The commit where this branch forked off of master"
-    git merge-base `current-branch` origin/master
-}
-
-function files-changed() {
-    git diff --stat `merge-base`
 }
 
 # PR current branch
