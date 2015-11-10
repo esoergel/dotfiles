@@ -1,10 +1,3 @@
-function apt-update() {
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
-    sudo apt-get dist-upgrade -y
-    sudo apt-get autoremove -y
-}
-
 function show-branches() {
     for BRANCH in `git branch | grep -v '\\*'`
     do
@@ -66,8 +59,4 @@ function PR() {
         git push origin $branch
         hub pull-request -b $origin:master -h $origin:$branch
     fi
-}
-
-function slack-slay() {
-    ps aux | grep slac[k] | awk '{print $2}' | xargs kill -9
 }
