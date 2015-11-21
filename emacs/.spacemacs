@@ -10,10 +10,12 @@
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()
  ;; List of configuration layers to load.
- dotspacemacs-configuration-layers '(haskell clojure mypackages)
+ dotspacemacs-configuration-layers '(haskell clojure emacs-config)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
 )
+
+(setq dotspacemacs-additional-packages '(magit))
 
 
 ;; Settings
