@@ -10,6 +10,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local lain = require("lain") -- https://github.com/copycat-killer/lain.git
 
 -- Load Debian menu entries
 require("debian.menu")
@@ -115,17 +116,26 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
+-----------------
+-- Define widgets
+-----------------
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
- batterystatus = wibox.widget.textbox()
- bashets.register("/usr/bin/acpitool -b | cut -d: -f2-", 
-                  {
-                      widget = batterystatus,
-                      update_time = 60, 
-                      separator = '|',
-                      format = "  Battery: $1" 
-                  })
+batterywidget = lain.widgets.bat()
+-- volume = lain.widgets.alsabar()
+volumewidget = lain.widgets.alsa()
+
+
+ -- batterystatus = wibox.widget.textbox()
+ -- bashets.register("/usr/bin/acpitool -b | cut -d: -f2-", 
+                  -- {
+                      -- widget = batterystatus,
+                      -- update_time = 60, 
+                      -- separator = '|',
+                      -- format = "  Battery: $1" 
+                  -- })
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -205,9 +215,12 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(batterystatus)
+    -- right_layout:add(batterystatus)
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(batterywidget)
+    right_layout:add(volumewidget)
     right_layout:add(mytextclock)
+    -- right_layout:add(volume)
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -216,8 +229,14 @@ for s = 1, screen.count() do
     layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
 
-
+    -- Run at startup
+    -- Google for how to do this without duplicating running processes
+    awful.util.spawn("xfce4-power-manager")
     awful.util.spawn("nm-applet")
+    awful.util.spawn("volti")
+    awful.util.spawn("gnome-do")
+    awful.util.spawn("xinit")
+    -- awful.util.spawn("tilda")
 
     mywibox[s]:set_widget(layout)
 end
