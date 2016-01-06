@@ -24,7 +24,8 @@ windows:
     - we
     - clear
   - couchdb:
-    - couchdb
+    # - couchdb
+    - tail -f /var/log/couchdb/couch.log
   - elastic:
     - ~/Dimagi/elasticsearch-0.90.2/bin/elasticsearch -f
   - ptop:
@@ -36,6 +37,10 @@ windows:
   - server:
     - we
     - djrunserver
-  - working:
+  - redis:
     - we
-    - clear
+    - redis-server
+  - kafka:
+    - cd ~/libs/kafka_2.11-0.9.0.0/
+    - ./bin/zookeeper-server-start.sh ./config/zookeeper.properties &
+    - ./bin/kafka-server-start.sh ./config/server.properties
