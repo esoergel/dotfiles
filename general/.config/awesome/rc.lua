@@ -125,6 +125,7 @@ mytextclock = awful.widget.textclock()
 
 batterywidget = lain.widgets.bat()
 -- volume = lain.widgets.alsabar()
+-- sound audio
 volumewidget = lain.widgets.alsa()
 
 

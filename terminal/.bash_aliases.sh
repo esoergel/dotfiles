@@ -14,4 +14,5 @@ alias lessc='nodejs /opt/lessc/bin/lessc'
 alias xcape=~/libs/xcape/xcape 
 alias xinit=~/.xinitrc
 alias we='workon hq3 && source venv'
+alias de='deactivate && cd -'
 alias hqstart='tmuxinator start cchq'

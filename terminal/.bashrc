@@ -138,6 +138,7 @@ for SCRIPT in \
       ~/.bashmarks.sh \
       ~/.bash_aliases.sh \
       ~/git_scripts.sh \
+      ~/shell_scripts.sh \
 
   do
     if [ -f $SCRIPT ]; then
@@ -154,6 +155,12 @@ alias refresh='history -c; history -r'
 shopt -s histappend
 HISTSIZE=1000000
 HISTFILESIZE=1000000
+
+# http://www.catonmat.net/download/bash-vi-editing-mode-cheat-sheet.pdf
+# http://vim.wikia.com/wiki/Use_vi_shortcuts_in_terminal
+set editing-mode vi
+set keymap vi-command
+bind -m vi-insert "\C-l":clear-screen
 
 export PATH="$PATH:~/bin:~/.cabal/bin:"
 # "/home/ethan/anaconda/bin"  # anacondas is naughty with my namespace
