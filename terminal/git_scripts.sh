@@ -35,15 +35,23 @@ function update-code() {
 
 # PR current branch
 function PR() {
-    branch=$(current-branch)
+    branch=$(git current-branch)
     origin_url=$(git config --get remote.origin.url)
     origin=$(python -c "import re; print re.split('[:/]', '$origin_url')[-2]")
-    if [ $branch == "master" ]
+
+    if [[ $branch == "master" ]]
     then
         echo "You're on master, you big dummy!"
-    else
-        echo "PRing $branch to $origin_url"
-        git push origin $branch
-        hub pull-request -b $origin:master -h $origin:$branch
+        return 1
     fi
+
+    echo "PRing $branch to $origin_url"
+    git push origin $branch
+    if [[ $? != 0 ]]
+    then
+        echo "Failure while pushing to master.  You might need to 'push -f'."
+        return 1
+    fi
+
+    hub pull-request -b $origin:master -h $origin:$branch
 }
