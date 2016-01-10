@@ -1,8 +1,6 @@
 ;; m-x eval-last-sexp
 ;; m-x eval-expression
-
-(defun ethan-test ()
-  (message "Hello, Ethan!"))
+;; m-x ielm  ; repl
 
 (defun cljs-node-repl ()
   (interactive)

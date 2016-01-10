@@ -12,6 +12,9 @@
 
 (defvar emacs-config-packages
   '(
+    magit
+    evil-magit
+    ranger
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -29,3 +32,15 @@ which require an initialization must be listed explicitly in the list.")
 ;; For more info on `use-package', see readme:
 ;; https://github.com/jwiegley/use-package
 
+(message "Reading emacs-config packages")
+(defun emacs-config/init-magit ()
+  ;; (use-package evil-magit))
+  (message "LOADING magit VIA emacs-config")
+  )
+
+(defun emacs-config/init-evil-magit ()
+  ;; (use-package evil-magit))
+  (require 'evil-magit))
+
+
+(defun emacs-config/init-ranger ())
