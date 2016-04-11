@@ -123,7 +123,7 @@ fi
 export WORKON_HOME=~/virtualenvs
 export PROJECT_HOME=$HOME/web_dev
 alias setvenv='source $WORKON_HOME/setvenv'
-# source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
 
 
 # Mechanical Turk
@@ -164,6 +164,8 @@ bind -m vi-insert "\C-l":clear-screen
 
 export PATH="$PATH:~/bin:~/.cabal/bin:"
 # "/home/ethan/anaconda/bin"  # anacondas is naughty with my namespace
+
+export XDG_CONFIG_HOME=$HOME/.config
 
 export EDITOR='nvim'
 alias vim=nvim

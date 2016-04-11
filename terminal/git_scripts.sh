@@ -34,8 +34,9 @@ function update-code() {
 }
 
 # PR current branch
+# Uses https://hub.github.com/
 function PR() {
-    branch=$(git current-branch)
+    branch=$(git rev-parse --abbrev-ref HEAD)
     origin_url=$(git config --get remote.origin.url)
     origin=$(python -c "import re; print re.split('[:/]', '$origin_url')[-2]")
 
@@ -49,7 +50,7 @@ function PR() {
     git push origin $branch
     if [[ $? != 0 ]]
     then
-        echo "Failure while pushing to master.  You might need to 'push -f'."
+        echo "Failure while pushing to origin.  You might need to 'push -f'."
         return 1
     fi
 

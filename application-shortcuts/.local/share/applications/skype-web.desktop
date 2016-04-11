@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Skype Web
+Exec=/usr/bin/chromium --app=https://web.skype.com/en
+Icon=/home/jake/.gnome/apps/gmail-logo.png

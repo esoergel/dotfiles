@@ -22,12 +22,12 @@ root: ~/Dimagi/commcare-hq
 windows:
   - editor:
     - we
-    - clear
   - couchdb:
-    # - couchdb
-    - tail -f /var/log/couchdb/couch.log
+    - ./dockerhq.sh services logs couch
   - elastic:
-    - ~/Dimagi/elasticsearch-0.90.2/bin/elasticsearch -f
+    # - ~/Dimagi/elasticsearch-0.90.2/bin/elasticsearch -f
+    - we
+    - ./dockerhq.sh services logs elasticsearch
   - ptop:
     - we
     - dj run_ptop --pillow-key=core
@@ -37,10 +37,10 @@ windows:
   - server:
     - we
     - djrunserver
-  - redis:
-    - we
-    - redis-server
-  - kafka:
-    - cd ~/libs/kafka_2.11-0.9.0.0/
-    - ./bin/zookeeper-server-start.sh ./config/zookeeper.properties &
-    - ./bin/kafka-server-start.sh ./config/server.properties
+  # - redis:
+    # - we
+    # - redis-server
+  # - kafka:
+    # - cd ~/libs/kafka_2.11-0.9.0.0/
+    # - ./bin/zookeeper-server-start.sh ./config/zookeeper.properties &
+    # - ./bin/kafka-server-start.sh ./config/server.properties
