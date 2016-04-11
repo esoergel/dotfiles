@@ -22,6 +22,7 @@
     gtags
     emacs-config
     github-integration
+    yaml
 )
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
@@ -54,8 +55,8 @@
                        zenburn)
  ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
  ;; size to make separators look not too crappy.
- dotspacemacs-default-font '("Source Code Pro"
-                             :size 13
+ dotspacemacs-default-font '("Liberation Mono"
+                             :size 11
                              :weight normal
                              :width normal
                              :powerline-scale 1.1)

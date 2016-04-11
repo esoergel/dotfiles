@@ -1,5 +1,6 @@
 (evil-leader/set-key
-  "a" 'helm-do-ag
+  ;; "a" 'helm-do-ag
+  "a" 'helm-projectile-ag
   "o" 'helm-projectile
   "P" 'clipboard-yank
   "y" 'clipboard-kill-ring-save
