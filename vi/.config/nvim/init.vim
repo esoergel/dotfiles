@@ -53,6 +53,7 @@ Plug 'scrooloose/nerdcommenter'
           \ 'leftAlt': '{# ', 'rightAlt': ' #}',
           \ },
         \ 'lisp': { 'left': ';;'},
+        \ 'python': { 'left': '#'},
       \ }
 Plug 'karlbright/qfdo.vim'
 
