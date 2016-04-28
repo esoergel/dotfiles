@@ -56,7 +56,7 @@
  ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
  ;; size to make separators look not too crappy.
  dotspacemacs-default-font '("Liberation Mono"
-                             :size 11
+                             :size 19
                              :weight normal
                              :width normal
                              :powerline-scale 1.1)

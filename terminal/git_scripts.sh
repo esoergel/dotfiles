@@ -56,3 +56,13 @@ function PR() {
 
     hub pull-request -b $origin:master -h $origin:$branch
 }
+
+
+function git-discard-changes() {
+    for submodule in $(git submodule | sed 's/^+/ /' | cut -f3 -d' ')
+    do
+        cd $submodule
+        git checkout -- .
+        cd -
+    done
+}

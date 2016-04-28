@@ -80,6 +80,7 @@ disable=W0142,W0403,R0201,W0212,W0613,W0232,R0903,W0614,C0111,C0301,R0913,C0103,
 #   E1002 = Use of super on an old style class
 #   C0111 = Missing docstring
 disable = R0201, W0232, R0903, C0103, E1002, C0111, W0141
+disable = W503
 
 
 [REPORTS]
