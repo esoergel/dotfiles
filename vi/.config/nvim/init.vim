@@ -140,6 +140,8 @@ Plug 'scrooloose/nerdtree'
         \ ]
     let g:NERDTreeMapUpdirKeepOpen = "-"
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+    let g:fzf_command_prefix = 'Fzf'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'chrisbra/NrrwRgn'
     let g:nrrw_rgn_vert = 1
@@ -260,27 +262,13 @@ map <leader>p "+p
 map <leader>P "+P
 
 " File searching and FZF stuff
-map <leader>o :FZF<CR>
-
-function! s:all_recent_files()
-  return extend(
-  \ filter(copy(v:oldfiles),
-  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
-  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-endfunction
-
-nnoremap <silent> <leader>b :call fzf#run({
-\ 'source':  reverse(<sid>all_recent_files()),
-\ 'sink':    'edit',
-\ 'options': '-m -x +s',
-\ 'down':    '40%' })<CR>
+nnoremap <leader>o :FZF<CR>
+nnoremap <silent> <leader>b :FzfHistory<CR>
+nnoremap <silent> <leader>B :FzfBuffers<CR>
+nnoremap <silent> <leader>: :FzfCommands<CR>
 
 " Ctags searching
-command! -bar FZFTags if !empty(tagfiles()) | call fzf#run({
-\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
-\   'sink':   'tag',
-\ }) | else | echo 'Preparing tags' | call system('ctags -R') | FZFTag | endif
-nnoremap <leader>ta :FZFTags<CR>
+nnoremap <leader>ta :FzfTags<CR>
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
