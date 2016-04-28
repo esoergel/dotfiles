@@ -6,6 +6,7 @@ set nocompatible
 
 " PLUGINS
 " =======
+" https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
 " To check out:
@@ -88,7 +89,7 @@ Plug 'benekastah/neomake'
         \ }
     let g:neomake_python_pylama_maker={
         \ 'exe': 'pylama',
-        \ 'args': ['--ignore', 'E501'],
+        \ 'args': ['--ignore', 'E501,W503'],
         \ }
     let g:neomake_python_mccabe_maker={
         \ 'exe': 'pylama',
@@ -397,9 +398,9 @@ set tabstop=4                   "A tab is 4 spaces
 
 " set fileformats+=dos       " don't auto-add an eol character
 
-set backupdir=~/.vim/tmp/backup//
+" set backupdir=~/.vim/tmp/backup//
 set directory=~/.vim/tmp/swap//
-set backup
+set nobackup
 set backupskip=/tmp/
 
 set wildignore+=.hg,.git,.svn
