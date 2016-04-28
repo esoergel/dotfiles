@@ -517,7 +517,8 @@ command! -nargs=1 RandString call RandString(<args>)
 " ===================================
 function! RandReplace()
 python << EOF
-import vim, random, string
+import vim, random
+from string import lowercase, uppercase, digits
 buf = vim.current.buffer
 (line1, col1) = buf.mark('<')
 (line2, col2) = buf.mark('>')
@@ -527,14 +528,8 @@ for i, line in enumerate(lines):
     start = col1 if i == 0 else 0
     end = col2 if i == len(lines)-1 else 1000
     input_str += line[start:end]
-char_sets = [string.lowercase, string.uppercase, string.digits, string.digits]
-char_pool = ''
-for char_set in char_sets:
-    for char in input_str:
-        if char in char_set:
-            char_pool += char_set
-            break
-# char_pool = string.uppercase + string.digits*2
+char_pool = "".join(chars for chars in [lowercase, uppercase, digits, digits]
+                    if (set(input_str) & set(chars)))
 getrand = lambda: random.choice(char_pool)
 def process_line(line, num):
     start = col1 if num == 0 else 0
@@ -550,7 +545,7 @@ for i, line in enumerate(lines):
     buf[line1+i-1] = process_line(line, i)
 EOF
 endfunction
-vnoremap <Leader>Rr :call RandReplace()<cr>
+vnoremap <Leader>RR :call RandReplace()<cr>
 
 function! SearchForString()
     :let [line1, col1] = searchpos("\\<", "bcn")
