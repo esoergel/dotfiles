@@ -4,6 +4,8 @@
 
 ;; Configuration Layers
 ;; --------------------
+;; TODO
+;; Check out https://www.emacswiki.org/emacs/WinnerMode to undo and redo changes to windows
 
 (setq-default
  ;; List of additional paths where to look for configuration layers.
@@ -23,6 +25,8 @@
     emacs-config
     github-integration
     yaml
+    syntax-checking
+    ;; themes-megapack
 )
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
@@ -47,12 +51,11 @@
  ;; List of themes, the first of the list is loaded when spacemacs starts.
  ;; Press <SPC> T n to cycle to the next theme in the list (works great
  ;; with 2 themes variants, one dark and one light)
- dotspacemacs-themes '(;;base16-eighties
-                       ;;base16-default
+ dotspacemacs-themes '(
                        monokai
                        solarized-dark
                        solarized-light
-                       zenburn)
+                       )
  ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
  ;; size to make separators look not too crappy.
  dotspacemacs-default-font '("Liberation Mono"
