@@ -22,11 +22,13 @@
     version-control
     auto-completion
     gtags
-    emacs-config
     github-integration
+    github
     yaml
     syntax-checking
     ;; themes-megapack
+
+    emacs-config
 )
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
@@ -43,11 +45,14 @@
  package-check-signature nil
  global-evil-search-highlight-persist nil
  x-select-enable-clipboard 1
- ;; Specify the startup banner. If the value is an integer then the
- ;; banner with the corresponding index is used, if the value is `random'
- ;; then the banner is chosen randomly among the available banners, if
- ;; the value is nil then no banner is displayed.
- dotspacemacs-startup-banner 'random
+ ;; Specify the startup banner. Default value is `official', it displays
+ ;; the official spacemacs logo. An integer value is the index of text
+ ;; banner, `random' chooses a random text banner in `core/banners'
+ ;; directory. A string value must be a path to a .PNG file.
+;; If the value is nil then no banner is displayed.
+ ;; dotspacemacs-startup-banner nil
+ dotspacemacs-startup-banner "~/.emacs.d/private/emacs-config/img/gnu-levitate.png"
+ ;; dotspacemacs-startup-banner "~/.emacs.d/core/banners/img/spacemacs.png"
  ;; List of themes, the first of the list is loaded when spacemacs starts.
  ;; Press <SPC> T n to cycle to the next theme in the list (works great
  ;; with 2 themes variants, one dark and one light)
