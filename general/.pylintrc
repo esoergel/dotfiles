@@ -44,16 +44,9 @@ load-plugins=
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
 
-# pulled from http://stackoverflow.com/questions/35470/are-there-any-static-analysis-tools-for-python/35476#35476
-# Brain-dead errors regarding standard language features
-#   W0142 = *args and **kwargs support
+# Other things to maybe disable
 #   W0403 = Relative imports
-
-# Pointless whining
 #   R0201 = Method could be a function
-#   W0212 = Accessing protected attribute of client class
-#   W0613 = Unused argument
-#   W0232 = Class has no __init__ method
 #   R0903 = Too few public methods
 #   C0301 = Line too long
 #   R0913 = Too many arguments
@@ -64,23 +57,12 @@ load-plugins=
 #   F0401 = Unable to import module
 #   W0402 = Uses of a deprecated module
 
-# Already an error when wildcard imports are used
-#   W0614 = Unused import from wildcard
-
-# Sometimes disabled depending on how bad a module is
-#   C0111 = Missing docstring
-
-disable=W0142,W0403,R0201,W0212,W0613,W0232,R0903,W0614,C0111,C0301,R0913,C0103,F0401,W0402,R0914
-
-# disable the following:
-#   R0201 = Method could be a function
+# Disabled
+#   W0142 = *args and **kwargs support
 #   W0232 = Class has no __init__ method
-#   R0903 = Too few public methods
-#   C0103 = Invalid name
-#   E1002 = Use of super on an old style class
 #   C0111 = Missing docstring
-disable = R0201, W0232, R0903, C0103, E1002, C0111, W0141
-disable = W503
+
+disable = R0201, W0142, W0232, C0111
 
 
 [REPORTS]
@@ -134,6 +116,7 @@ required-attributes=
 
 # List of builtins function names that should not be used, separated by a comma
 # bad-functions=map,filter,apply,input
+bad-functions=apply,input
 
 # Regular expression which should only match correct module names
 module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
