@@ -9,7 +9,7 @@
     co = checkout
     br = branch
     st = status
-    su = submodule update --recursive
+    su = submodule update --init --recursive
     ds = diff --stat
 
     # remove all branches merged in to HEAD
@@ -32,6 +32,7 @@
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base $(git current-branch) origin/master"
     changed = "!git diff --stat $(git last-master-commit)"
+    diff-last-master = "!git diff $(git last-master-commit)"
 
     # from mwhite's gitconf:
     #show log with full diffs
@@ -79,9 +80,14 @@
     recurseSubmodules = on-demand
 [diff]
     tool = vimdiff
+    compactionHeuristic = 1
 [merge]
     tool = vimdiff
 [credential]
     helper = cache --timeout=3600
 [web]
     browser = firefox
+[submodule]
+    fetchJobs = 0
+[github]
+    user = esoergel

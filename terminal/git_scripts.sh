@@ -1,14 +1,15 @@
 function show-branches() {
-    for BRANCH in `git branch | grep -v '\\*'`
+    for BRANCH in `git branch | grep -vw master| sed "s/[* ] //"`
     do
         echo $(git show --no-patch $BRANCH\
         --pretty="
             %C(magenta)%ad
+            %C(blue)%an
             %C(reset)<name>
             %C(yellow)%s
             %C(red)%d
             %C(reset)
-        ") | sed "s/<name>/$BRANCH -/g"
+        ") | sed "s|<name>|$BRANCH -|g"
     done
 }
 
@@ -26,10 +27,10 @@ function pull-latest-masters() {
 }
 
 function update-code() {
-    git checkout master
-    git fetch origin
-    git merge origin/master
-    git submodule update --init --recursive
+    git checkout master &&
+    git fetch origin &&
+    git merge origin/master &&
+    git submodule update --init --recursive &&
     pyc-purge
 }
 
