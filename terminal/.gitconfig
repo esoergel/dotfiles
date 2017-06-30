@@ -6,6 +6,7 @@
     name = Ethan Soergel
     email = esoergel@gmail.com
 [alias]
+    bco = "!git checkout -b es/$1 $2 && echo $1 > /dev/null"
     co = checkout
     br = branch
     st = status
@@ -29,15 +30,14 @@
     lsn = log --stat HEAD --graph --not
     lsnm = log --stat HEAD --not origin/master --graph
 
+    lp = log -p HEAD
+    lpn = log -p HEAD --not
+    lpnm = log -p HEAD --not origin/master
+
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base $(git current-branch) origin/master"
     changed = "!git diff --stat $(git last-master-commit)"
     diff-last-master = "!git diff $(git last-master-commit)"
-
-    # from mwhite's gitconf:
-    #show log with full diffs
-    lpn = log -p HEAD --not  
-    lpnm = log -p HEAD --not origin/master
 
     # https://gist.github.com/mwhite/6887990
     # one-line log
@@ -45,6 +45,11 @@
     lnm = log HEAD --pretty=oneliner --not origin/master
     # list aliases
     la = "!git config -l | grep alias | cut -c 7-"
+
+    # List ALL commits
+    lr = l --reflog
+
+    mine = "!git l --reflog | grep Soergel"
 [pretty]
     cute = "\
 %n\
@@ -73,7 +78,7 @@
     editor = vim
     excludesfile = /home/ethan/.gitignore
 [push]
-    default = nothing
+    default = current
 [color]
     ui = true
 [fetch]
