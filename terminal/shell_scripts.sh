@@ -7,4 +7,5 @@ function apt-update() {
 
 function slack-slay() {
     ps aux | grep slac[k] | awk '{print $2}' | xargs kill -9
+    ps aux | grep skyp[e] | awk '{print $2}' | xargs kill -9
 }

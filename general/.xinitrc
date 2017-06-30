@@ -8,6 +8,6 @@ fi
 
 . /etc/
 
-synclient TouchpadOff=1
+# synclient TouchpadOff=1
 
 # xpmroot ~/cracked-screen.png

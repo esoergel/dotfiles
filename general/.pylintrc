@@ -6,7 +6,7 @@
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
-#init-hook=
+# init-hook=
 
 # Use multiple processes to speed up Pylint
 jobs=4
@@ -96,7 +96,7 @@ comment=no
 
 # Maximum number of characters on a single line.
 # max-line-length=80
-max-line-length=100
+max-line-length=115
 
 # Maximum number of lines in a module
 # max-module-lines=1000

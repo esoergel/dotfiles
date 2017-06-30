@@ -24,7 +24,7 @@ Plug 'tpope/vim-surround'
     let b:surround_{char2nr("%")} = "{% \r %}"
     let b:surround_{char2nr("x")} = "{% trans \"\r\" %}"
 Plug 'tpope/vim-repeat'
-Plug 'Gundo'
+Plug 'vim-scripts/Gundo'
     let g:gundo_width = 40
     let g:gundo_preview_height = 40
     let g:gundo_right = 0
@@ -129,7 +129,7 @@ Plug 'terryma/vim-multiple-cursors'
   let g:multi_cursor_exit_from_visual_mode=0
 Plug 'majutsushi/tagbar'
     let g:tagbar_sort = 0
-Plug 'tagexplorer.vim'
+Plug 'vim-scripts/tagexplorer.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'scrooloose/nerdtree'
     " Auto close NERDTree
@@ -139,7 +139,7 @@ Plug 'scrooloose/nerdtree'
         \ '\.pyc$',
         \ ]
     let g:NERDTreeMapUpdirKeepOpen = "-"
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
     let g:fzf_command_prefix = 'Fzf'
 Plug 'Lokaltog/vim-easymotion'
@@ -153,7 +153,7 @@ Plug 'ludovicchabant/vim-gutentags'
 
 
 " UI
-Plug 'CSApprox'
+Plug 'vim-scripts/CSApprox'
 " Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
     let g:solarized_termcolors=256
@@ -177,6 +177,7 @@ Plug 'kien/rainbow_parentheses.vim'
 " GIT
 let g:github_user = 'esoergel'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim' | Plug 'mmozuras/vim-github-comment'
@@ -187,15 +188,14 @@ call plug#end()
 " (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
 " set background=light
 set background=dark
-" colorscheme solarized
+colorscheme solarized
 " colorscheme desert
-colorscheme gruvbox
-" colorscheme seoul256
+" colorscheme gruvbox
+colorscheme seoul256
 " if has("gui_running")
 " colorscheme Tomorrow-Night-Eighties
 " endif
 " colorscheme seoul256-light
-" colorscheme elflord
 
 
 " Mappings
@@ -211,6 +211,7 @@ map <leader>% :source %<CR>
 
 " try out prefixing these
 map <leader>* oprint "*"*40, 'ESOE: <c-o>P', "*"*40<Esc>
+map <leader>dv oprint "** <c-o>p", <c-o>p<Esc>
 map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>dc ofrom celery.contrib import rdb; rdb.set_trace()<Esc>
@@ -233,6 +234,7 @@ iabbrev pdb import ipdb; ipdb.set_trace()
 iabbrev ppj import json; print json.dumps(, indent=4)
 
 map <leader>/ <leader>c<space>
+map <leader>;; <leader>c<space>
 map <leader>a :Ag<space>
 map <leader>e :Tagbar<CR>
 
@@ -256,6 +258,7 @@ map <leader>gg :Gist -b<space>
 map <leader>gd :Gvdiff<space>
 map <leader>gs :Gstatus<CR>
 map <leader>gw :Gwrite<CR>
+map <leader>gl :FzfBCommits<CR>
 
 map <leader>y "+y
 map <leader>p "+p
@@ -263,9 +266,10 @@ map <leader>P "+P
 
 " File searching and FZF stuff
 nnoremap <leader>o :FZF<CR>
-nnoremap <silent> <leader>b :FzfHistory<CR>
-nnoremap <silent> <leader>B :FzfBuffers<CR>
+nnoremap <silent> <leader>B :FzfHistory<CR>
+nnoremap <silent> <leader>b :FzfBuffers<CR>
 nnoremap <silent> <leader>: :FzfCommands<CR>
+nnoremap <silent> <leader>Ts :FzfColors<CR>
 
 " Ctags searching
 nnoremap <leader>ta :FzfTags<CR>
@@ -303,6 +307,11 @@ map <leader>w <C-w>
 map <leader>W :%s/\s\+$//
 map <leader>x :syntax on<CR>:source ~/.vimrc<CR>
 " nnoremap <silent> <Esc> :noh<CR><Esc><Esc>
+
+" foo.bar -> foo['bar']
+map <leader>md ysiw]wysiw'bx
+" foo['bar'] -> foo.bar
+map <leader>mm ds'ds]i.<Esc>
 
 " remove annoying commands
 nnoremap q: <Nop>
@@ -425,8 +434,11 @@ set showbreak=⤷\
 set linebreak
 
 " auto indent xml files with '='
+" sudo apt-get install libxml2-utils
 " http://ku1ik.com/2011/09/08/formatting-xml-in-vim-with-indent-command.html
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+" autoformat json
+autocmd FileType json setlocal equalprg=python\ -m\ json.tool\ 2>/dev/null
 
 " XForm validator:
 map <leader>cx :!~/Dimagi/form_translate.jar validate "%"<CR>
@@ -564,7 +576,6 @@ function! WrapComment()
 python << EOF
 import vim
 from itertools import takewhile
-print "*"*40, 'ESOE: WrapComment', "*"*40
 LINE_MAX = 40
 buf = vim.current.buffer
 # selection = vim.current.range
