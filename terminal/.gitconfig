@@ -6,6 +6,7 @@
     name = Ethan Soergel
     email = esoergel@gmail.com
 [alias]
+    praise = blame
     bco = "!git checkout -b es/$1 $2 && echo $1 > /dev/null"
     co = checkout
     br = branch
@@ -41,15 +42,17 @@
 
     # https://gist.github.com/mwhite/6887990
     # one-line log
-    l = log --pretty=oneliner --decorate --date=short
+    l = log --pretty=oneliner --decorate
     lnm = log HEAD --pretty=oneliner --not origin/master
     # list aliases
     la = "!git config -l | grep alias | cut -c 7-"
 
     # List ALL commits
-    lr = l --reflog
+    lr = "!git l --reflog"
 
-    mine = "!git l --reflog | grep Soergel"
+    ; mine = "!git l --date=iso --reflog | grep Soergel"
+
+    mine = "!git log --pretty='%C(magenta)%ad %C(blue) [%cn] %C(green)%h %C(yellow)%s %C(red)%d %C(reset)' --date=iso --reflog | grep Soergel"
 [pretty]
     cute = "\
 %n\
@@ -71,9 +74,9 @@
 [format]
     pretty = cute
 [log]
-    # relative, local, default, raw, iso, rfc, short
     decorate = short
-    date = short
+    # relative, local, default, raw, iso, rfc, short
+    date = iso
 [core]
     editor = vim
     excludesfile = /home/ethan/.gitignore
