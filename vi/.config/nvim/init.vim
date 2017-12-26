@@ -91,10 +91,10 @@ Plug 'benekastah/neomake'
         \ 'exe': 'pylama',
         \ 'args': ['--ignore', 'E501,W503'],
         \ }
-    let g:neomake_python_mccabe_maker={
-        \ 'exe': 'pylama',
-        \ 'args': ['--linters', 'mccabe'],
-        \ }
+    " let g:neomake_python_mccabe_maker={
+    "     \ 'exe': 'pylama',
+    "     \ 'args': ['--linters', 'mccabe'],
+    "     \ }
 
 " Plug 'klen/python-mode'
     " let g:pymode_lint = 0
@@ -150,6 +150,11 @@ Plug 'Shougo/vimproc.vim'
 Plug 'h1mesuke/unite-outline'
     let g:unite_winheight=12
 Plug 'ludovicchabant/vim-gutentags'
+  " g:gutentags_ctags_executable
+  " `.gutctags`: if this file exists, Ctags will be told to load additional
+  " command-line parameters by reading it line by line (see the Ctags
+  " documentation for more information).
+  "
 
 
 " UI
@@ -453,8 +458,8 @@ noh
 " Custom Scripts
 " ==============
 function! Ctags()
-    " !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.min.js
-    !ctags -f $VIRTUAL_ENV/lib/python2.7/site-packages/tags $VIRTUAL_ENV/lib/python2.7/site-packages/*
+    !ctags -R --tag-relative=yes --exclude=.git --exclude=node_modules --exclude=*.min.js --exclude=bower_components --exclude=staticfiles --exclude=*js/lib*
+    !ctags -f $VIRTUAL_ENV/lib/python2.7/site-packages/tags $VIRTUAL_ENV/lib/python2.7/site-packages/* --exclude=*Cython*
 endfunction
 set tags=tags,$VIRTUAL_ENV/lib/python2.7/site-packages/tags
 nnoremap <leader>ct :call Ctags()<CR>

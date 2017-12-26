@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Netflix
+Exec=firefox -P DRM --no-remote https://www.netflix.com/browse
+Terminal=False

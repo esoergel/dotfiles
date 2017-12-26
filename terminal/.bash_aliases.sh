@@ -28,3 +28,4 @@ function mouse() {
 }
 
 alias less="less -r"
+alias fab='fab -f ~/.commcare-cloud/repo/fab/fabfile.py'

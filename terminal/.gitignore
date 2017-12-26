@@ -16,3 +16,4 @@ celerybeat-schedule
 *.script.py
 *.local.*
 /local.*
+.gutctags
