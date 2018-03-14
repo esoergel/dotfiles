@@ -371,6 +371,39 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; Override these functions so n is always forward and N is always backwards
+  (evil-define-motion evil-search-next (count)
+    "Repeat the last search."
+    :jump t
+    :type exclusive
+    (let ((orig (point))
+          (search-string (if evil-regexp-search
+                             (car-safe regexp-search-ring)
+                           (car-safe search-ring))))
+      (goto-char
+       ;; Wrap in `save-excursion' so that multiple searches have no visual effect.
+       (save-excursion
+         (evil-search search-string t evil-regexp-search)
+         (when (and (> (point) orig)
+                    (save-excursion (evil-adjust-cursor) (= (point) orig)))
+           ;; Point won't move after first attempt and `evil-adjust-cursor' takes
+           ;; effect, so start again.
+           (evil-search search-string t evil-regexp-search))
+         (point)))
+      (when (and count (> count 1))
+        (dotimes (var (1- count))
+          (evil-search search-string t evil-regexp-search)))))
+
+  (evil-define-motion evil-search-previous (count)
+    "Repeat the last search in the opposite direction."
+    :jump t
+    :type exclusive
+    (dotimes (var (or count 1))
+      (evil-search (if evil-regexp-search
+                      (car-safe regexp-search-ring)
+                    (car-safe search-ring))
+                  nil evil-regexp-search)))
+
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
   (define-key evil-normal-state-map (kbd "-") 'ranger)
