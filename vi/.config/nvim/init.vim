@@ -219,6 +219,7 @@ map <leader>* oprint "*"*40, 'ESOE: <c-o>P', "*"*40<Esc>
 map <leader>dv oprint "** <c-o>p", <c-o>p<Esc>
 map <leader>db oimport ipdb; ipdb.set_trace()<Esc>
 map <leader>Db Oimport ipdb; ipdb.set_trace()<Esc>
+map <leader>tb oimport traceback; traceback.print_stack()<Esc>
 map <leader>dc ofrom celery.contrib import rdb; rdb.set_trace()<Esc>
 nnoremap go :set paste<CR>m`o<Esc>``:set nopaste<CR>
 " use ]<space> and [<space> from vim-unimpaired

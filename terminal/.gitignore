@@ -17,3 +17,6 @@ celerybeat-schedule
 *.local.*
 /local.*
 .gutctags
+GPATH
+GRTAGS
+GTAGS
