@@ -20,7 +20,7 @@
     fetch-master = fetch origin master:master
 
     # list branches
-    lb = "!git branch | grep -v '\\*' | xargs -n 1 git log -1 --pretty=oneline"
+    lb = "!git branch | grep -v '\\*' | xargs -n 1 git log -1 --pretty=oneliner"
 
     # LOG SHORTCUTS
     # colors: normal, black, red, green, yellow, blue, magenta, cyan and white
@@ -40,7 +40,6 @@
     changed = "!git diff --stat $(git last-master-commit)"
     diff-last-master = "!git diff $(git last-master-commit)"
 
-    # https://gist.github.com/mwhite/6887990
     # one-line log
     l = log --pretty=oneliner --decorate
     lnm = log HEAD --pretty=oneliner --not origin/master
