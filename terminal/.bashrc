@@ -178,4 +178,4 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # commcare-cloud stuff
 PATH="$PATH:~/virtualenvs/ansible/bin/"
-source ~/.commcare-cloud/repo/control/.bash_completion
+source ~/.commcare-cloud/load_config.sh 

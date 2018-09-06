@@ -29,3 +29,25 @@ function mouse() {
 
 alias less="less -r"
 alias fab='fab -f ~/.commcare-cloud/repo/fab/fabfile.py'
+
+export PATH=$PATH:~/.commcare-cloud/bin
+source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
+function cchq-update() {
+    workon ansible
+    update-code
+    pip install -e .
+    source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
+    # [ -t 1 ] && source ~/init-ansible
+}
+
+function check-steel() {
+    python -c 'import requests
+for thickness in [125, 15626]:
+    for width in ["1-25", "1-5", "2", "2-5", "3", "4"]:
+        res = requests.post(
+            "http://newjerseysteelbaron.com/shop/1084hc/?wc-ajax=get_variation",
+            data={"attribute_pa_thickness": thickness, "attribute_pa_width": width,
+                "attribute_pa_length": 48, "product_id": 227,}
+        )
+        print thickness, width, "in stock?", res.json()["is_in_stock"]'
+}
