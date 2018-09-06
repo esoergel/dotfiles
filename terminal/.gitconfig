@@ -35,6 +35,7 @@
     lpn = log -p HEAD --not
     lpnm = log -p HEAD --not origin/master
 
+    ; git merge-base $(git rev-parse --abbrev-ref HEAD) origin/master
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base $(git current-branch) origin/master"
     changed = "!git diff --stat $(git last-master-commit)"
@@ -76,6 +77,8 @@
     decorate = short
     # relative, local, default, raw, iso, rfc, short
     date = iso
+[rebase]
+		missingCommitsCheck = error
 [core]
     editor = vim
     excludesfile = /home/ethan/.gitignore
