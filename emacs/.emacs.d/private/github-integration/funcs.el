@@ -43,13 +43,26 @@
 (defun file-path-from-root ()
   (substring (buffer-file-name) (length (repo-root))))
 
-(defun open-on-github ()
+(defun ref-to-use ()
+  "Could also just be 'master'"
+  (let ((last-master-commit "git merge-base $(git rev-parse --abbrev-ref HEAD) origin/master"))
+    (shell-command-to-string last-master-commit)))
+
+(defun get-github-link ()
   "Open up this file/line on github"
-  (interactive)
-  (let ((file-url (concat (origin-base-url) "/blob/master" (file-path-from-root))))
+  (let ((file-url (concat (origin-base-url) "/blob/" (ref-to-use) (file-path-from-root))))
     (if (use-region-p)
         (let ((start (line-number-at-pos (region-beginning)))
               (end (line-number-at-pos (- (region-end) 1))))
           (message (format "%s#L%d-L%d" file-url start end))
-          (browse-url (format "%s#L%d-L%d" file-url start end)))
-      (browse-url file-url))))
+          (format "%s#L%d-L%d" file-url start end))
+      file-url)))
+
+(defun open-on-github ()
+  (interactive)
+  (browse-url (get-github-link)))
+
+(defun copy-github-link ()
+  "Open up this file/line on github"
+  (interactive)
+  (kill-new (get-github-link)))
