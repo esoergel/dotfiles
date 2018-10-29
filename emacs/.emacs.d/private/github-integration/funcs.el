@@ -46,7 +46,7 @@
 (defun ref-to-use ()
   "Could also just be 'master'"
   (let ((last-master-commit "git merge-base $(git rev-parse --abbrev-ref HEAD) origin/master"))
-    (shell-command-to-string last-master-commit)))
+    (car (split-string (shell-command-to-string last-master-commit) nil t))))
 
 (defun get-github-link ()
   "Open up this file/line on github"
