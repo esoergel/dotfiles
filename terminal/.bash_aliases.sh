@@ -33,9 +33,9 @@ alias fab='fab -f ~/.commcare-cloud/repo/fab/fabfile.py'
 export PATH=$PATH:~/.commcare-cloud/bin
 source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
 function cchq-update() {
-    workon ansible
-    update-code
-    pip install -e .
+    workon ansible &&
+    update-code &&
+    pip install -e . &&
     source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
     # [ -t 1 ] && source ~/init-ansible
 }

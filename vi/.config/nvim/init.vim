@@ -96,7 +96,7 @@ Plug 'benekastah/neomake'
     "     \ 'args': ['--linters', 'mccabe'],
     "     \ }
 
-" Plug 'klen/python-mode'
+Plug 'python-mode/python-mode'
     " let g:pymode_lint = 0
     " " let g:pymode_lint_on_write = 0
     " " let g:pymode_lint_ignore = ""
