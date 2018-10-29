@@ -38,6 +38,7 @@
     ; git merge-base $(git rev-parse --abbrev-ref HEAD) origin/master
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base $(git current-branch) origin/master"
+    rebase-new-commits = "!git rebase -i $(git last-master-commit)"
     changed = "!git diff --stat $(git last-master-commit)"
     diff-last-master = "!git diff $(git last-master-commit)"
 
