@@ -491,13 +491,13 @@ you should place your code here."
            "C:" (id (one-or-more (not (any ":")))) ":"
            (message) line-end))
     :modes python-mode)
-  (add-to-list 'flycheck-checkers 'python-pylint-py3k t)
-  (flycheck-add-next-checker 'python-pylint 'python-pylint-py3k)
+  ;; (add-to-list 'flycheck-checkers 'python-pylint-py3k t)
+  ;; (flycheck-add-next-checker 'python-pylint 'python-pylint-py3k)
 
   (add-hook 'python-mode-hook (lambda ()
                                 (flycheck-mode 1)
                                 (semantic-mode 1)
-                                (setq flycheck-checker 'python-pylint
+                                (setq ;; flycheck-checker 'python-pylint
                                       flycheck-checker-error-threshold 900
                                       flycheck-python-pylint-executable "pylint"
                                       flycheck-pylintrc "~/.pylintrc")))

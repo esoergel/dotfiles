@@ -96,7 +96,7 @@ Plug 'benekastah/neomake'
     "     \ 'args': ['--linters', 'mccabe'],
     "     \ }
 
-Plug 'python-mode/python-mode'
+" Plug 'python-mode/python-mode'
     " let g:pymode_lint = 0
     " " let g:pymode_lint_on_write = 0
     " " let g:pymode_lint_ignore = ""
@@ -191,16 +191,16 @@ call plug#end()
 
 " Eigengrau is #16161D, (22, 22, 29)
 " (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
-" set background=light
-set background=dark
+set background=light
+" set background=dark
 colorscheme solarized
 " colorscheme desert
 " colorscheme gruvbox
-colorscheme seoul256
+" colorscheme seoul256
 " if has("gui_running")
 " colorscheme Tomorrow-Night-Eighties
 " endif
-" colorscheme seoul256-light
+colorscheme seoul256-light
 
 
 " Mappings
