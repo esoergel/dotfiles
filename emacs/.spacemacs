@@ -509,6 +509,15 @@ you should place your code here."
               (make-local-variable 'js-indent-level)
               (setq js-indent-level 2)))
 
+  (add-hook 'nxml-mode-hook (lambda() (hs-minor-mode 1)))
+  (add-to-list 'hs-special-modes-alist
+               '(nxml-mode
+                 "<!--\\|<[^/>]*[^/]>" ;; regexp for start block
+                 "-->\\|</[^/>]*[^/]>" ;; regexp for end block
+                 "<!--"
+                 nxml-forward-element
+                 nil))
+
   ;; (global-evil-mc-mode)
   ;; ("grm" . evil-mc-make-all-cursors)
   ;; ("gru" . evil-mc-undo-all-cursors)
