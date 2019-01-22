@@ -168,7 +168,7 @@ export PATH="$PATH:~/bin:~/.cabal/bin:"
 export XDG_CONFIG_HOME=$HOME/.config
 
 export EDITOR='nvim'
-alias vim=nvim
+# alias vim=nvim
 
 alias lessc=/usr/lib/node_modules/less/bin/lessc
 

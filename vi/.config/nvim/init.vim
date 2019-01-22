@@ -7,6 +7,11 @@ set nocompatible
 " PLUGINS
 " =======
 " https://github.com/junegunn/vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.vim/plugged')
 
 " To check out:
@@ -96,26 +101,26 @@ Plug 'benekastah/neomake'
     "     \ 'args': ['--linters', 'mccabe'],
     "     \ }
 
-" Plug 'python-mode/python-mode'
-    " let g:pymode_lint = 0
-    " " let g:pymode_lint_on_write = 0
-    " " let g:pymode_lint_ignore = ""
-    " let g:pymode_lint_message = 1
-    " let g:pymode_lint_cwindow = 0
-    " " https://github.com/python-rope/rope/blob/master/docs/overview.rst
-    " let g:pymode_rope = 1
-    " let g:pymode_rope_rename_bind = "<leader>rr"
-    " let g:pymode_rope_autoimport_bind = "<leader>ri"
-    " let g:pymode_rope_organize_imports_bind = '<leader>roi'
-    " let g:pymode_rope_extract_method_bind = '<leader>rm'
-    " let g:pymode_rope_extract_variable_bind = '<leader>rv'
-    " let g:pymode_options_max_line_length = 80
-    " let g:pymode_folding = 0
-    " let g:pymode_doc = 0
-    " let g:pymode_doc_bind = 'K'
-    " let g:pymode_trim_whitespaces = 0
-    " let g:pymode_breakpoint = 0
-    " let g:pymode_breakpoint_bind = '<leader>dldb'
+Plug 'python-mode/python-mode'
+    let g:pymode_lint = 0
+    let g:pymode_lint_on_write = 0
+    " let g:pymode_lint_ignore = ""
+    let g:pymode_lint_message = 1
+    let g:pymode_lint_cwindow = 0
+    " https://github.com/python-rope/rope/blob/master/docs/overview.rst
+    let g:pymode_rope = 1
+    let g:pymode_rope_rename_bind = "<leader>rr"
+    let g:pymode_rope_autoimport_bind = "<leader>ri"
+    let g:pymode_rope_organize_imports_bind = '<leader>roi'
+    let g:pymode_rope_extract_method_bind = '<leader>rm'
+    let g:pymode_rope_extract_variable_bind = '<leader>rv'
+    let g:pymode_options_max_line_length = 80
+    let g:pymode_folding = 0
+    let g:pymode_doc = 0
+    let g:pymode_doc_bind = 'K'
+    let g:pymode_trim_whitespaces = 0
+    let g:pymode_breakpoint = 0
+    let g:pymode_breakpoint_bind = '<leader>dldb'
 
 
 " NAVIGATION
