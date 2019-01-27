@@ -118,9 +118,9 @@ values."
    package-check-signature nil
    global-evil-search-highlight-persist nil
    x-select-enable-clipboard 1
-   visual-line-mode 1
+   ;; visual-line-mode 1
    ;; visual-line-fringe-indicators '("⤷" "⤶")
-   visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow)
+   ;; visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow)
    ;; visual-line-fringe-indicators '(nil right-curly-arrow)
 
    ;; If non nil ELPA repositories are contacted via HTTPS whenever it's
@@ -517,6 +517,8 @@ you should place your code here."
                  "<!--"
                  nxml-forward-element
                  nil))
+
+  (global-visual-line-mode t)
 
   ;; (global-evil-mc-mode)
   ;; ("grm" . evil-mc-make-all-cursors)
