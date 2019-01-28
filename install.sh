@@ -28,6 +28,7 @@ sudo apt-get install -y \
     git \
     neovim \
     npm \
+    curl \
     python \
     python-dev \
     python-pip \
@@ -59,3 +60,8 @@ cd ~/libs/xcape
 make
 sudo make install
 cd -
+
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
+snap install spotify
+
