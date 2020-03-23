@@ -7,11 +7,6 @@ set nocompatible
 " PLUGINS
 " =======
 " https://github.com/junegunn/vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin('~/.vim/plugged')
 
 " To check out:
@@ -101,26 +96,26 @@ Plug 'benekastah/neomake'
     "     \ 'args': ['--linters', 'mccabe'],
     "     \ }
 
-Plug 'python-mode/python-mode'
-    let g:pymode_lint = 0
-    let g:pymode_lint_on_write = 0
-    " let g:pymode_lint_ignore = ""
-    let g:pymode_lint_message = 1
-    let g:pymode_lint_cwindow = 0
-    " https://github.com/python-rope/rope/blob/master/docs/overview.rst
-    let g:pymode_rope = 1
-    let g:pymode_rope_rename_bind = "<leader>rr"
-    let g:pymode_rope_autoimport_bind = "<leader>ri"
-    let g:pymode_rope_organize_imports_bind = '<leader>roi'
-    let g:pymode_rope_extract_method_bind = '<leader>rm'
-    let g:pymode_rope_extract_variable_bind = '<leader>rv'
-    let g:pymode_options_max_line_length = 80
-    let g:pymode_folding = 0
-    let g:pymode_doc = 0
-    let g:pymode_doc_bind = 'K'
-    let g:pymode_trim_whitespaces = 0
-    let g:pymode_breakpoint = 0
-    let g:pymode_breakpoint_bind = '<leader>dldb'
+" Plug 'python-mode/python-mode'
+    " let g:pymode_lint = 0
+    " let g:pymode_lint_on_write = 0
+    " " let g:pymode_lint_ignore = ""
+    " let g:pymode_lint_message = 1
+    " let g:pymode_lint_cwindow = 0
+    " " https://github.com/python-rope/rope/blob/master/docs/overview.rst
+    " let g:pymode_rope = 1
+    " let g:pymode_rope_rename_bind = "<leader>rr"
+    " let g:pymode_rope_autoimport_bind = "<leader>ri"
+    " let g:pymode_rope_organize_imports_bind = '<leader>roi'
+    " let g:pymode_rope_extract_method_bind = '<leader>rm'
+    " let g:pymode_rope_extract_variable_bind = '<leader>rv'
+    " let g:pymode_options_max_line_length = 80
+    " let g:pymode_folding = 0
+    " let g:pymode_doc = 0
+    " let g:pymode_doc_bind = 'K'
+    " let g:pymode_trim_whitespaces = 0
+    " let g:pymode_breakpoint = 0
+    " let g:pymode_breakpoint_bind = '<leader>dldb'
 
 
 " NAVIGATION
@@ -177,6 +172,8 @@ Plug 'chriskempson/base16-vim'
     let base16colorspace=256
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'osyo-manga/vim-brightest'
+Plug 'drewtempelmeyer/palenight.vim'
+
 Plug 'kien/rainbow_parentheses.vim'
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
@@ -194,18 +191,27 @@ Plug 'mattn/webapi-vim' | Plug 'mmozuras/vim-github-comment'
 
 call plug#end()
 
+if (has("termguicolors"))
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 " Eigengrau is #16161D, (22, 22, 29)
 " (http://en.wikipedia.org/w/index.php?title=Eigengrau&oldid=561213458)
+" let base16colorspace=256  " Access colors present in 256 colorspac
 set background=light
-" set background=dark
+set background=dark
 colorscheme solarized
+" colorscheme base16-material-palenight
+colorscheme palenight
 " colorscheme desert
 " colorscheme gruvbox
 " colorscheme seoul256
 " if has("gui_running")
 " colorscheme Tomorrow-Night-Eighties
 " endif
-colorscheme seoul256-light
+" colorscheme seoul256-light
 
 
 " Mappings

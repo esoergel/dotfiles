@@ -13,6 +13,7 @@
     st = status
     su = submodule update --init --recursive
     ds = diff --stat
+    us = reset HEAD  # "unstage" - hopefully prevent me from using --hard
 
     # remove all branches merged in to HEAD
     trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
@@ -39,6 +40,7 @@
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base $(git current-branch) origin/master"
     rebase-new-commits = "!git rebase -i $(git last-master-commit)"
+    rc = rebase --continue
     changed = "!git diff --stat $(git last-master-commit)"
     diff-last-master = "!git diff $(git last-master-commit)"
 
@@ -50,6 +52,8 @@
 
     # List ALL commits
     lr = "!git l --reflog"
+
+    stash-show = stash show --format=full
 
     ; mine = "!git l --date=iso --reflog | grep Soergel"
 

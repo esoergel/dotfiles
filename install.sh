@@ -44,6 +44,7 @@ sudo apt-get install -y \
     silversearcher-ag \
     emacs \
     pass \
+    calibre \
 
 
 sudo gem install tmuxinator

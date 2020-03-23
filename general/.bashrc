@@ -175,7 +175,13 @@ alias lessc=/usr/lib/node_modules/less/bin/lessc
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-
 # commcare-cloud stuff
-PATH="$PATH:~/virtualenvs/ansible/bin/"
-source ~/.commcare-cloud/load_config.sh 
+export PATH=$PATH:~/.commcare-cloud/bin:~/virtualenvs/ansible/bin/
+source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
+source ~/.commcare-cloud/load_config.sh
+
+# synclient TapButton1=1 TapButton2=3 TapButton3=2
+
+# Ruby Gemas
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"

@@ -13,13 +13,21 @@ alias djrun="python manage.py runserver"
 alias lessc='nodejs /opt/lessc/bin/lessc'
 alias xcape=~/libs/xcape/xcape 
 alias xinit=~/.xinitrc
-alias we='workon hq && source venv'
+alias we='workon hq36 && source venv'
 alias de='deactivate && cd ~'
-alias hqstart='we && sudo ./scripts/docker start && sleep 2 && sudo ./scripts/docker restart kafka'
-alias hqstop='we && sudo ./scripts/docker stop'
 alias node='nodejs'
 
 alias dimagi-gpg="gpg --keyring dimagi.gpg --no-default-keyring"
+
+function hqstart() {
+    we &&
+    ./scripts/docker start couch elasticsearch kafka postgres redis
+    # formplayer riakcs
+}
+function hqstop() {
+    we &&
+    ./scripts/docker stop
+}
 
 function mouse() {
     echo "sudo vi /etc/udev/rules.d/10-trackpoint.rules"
