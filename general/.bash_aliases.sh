@@ -13,7 +13,7 @@ alias djrun="python manage.py runserver"
 alias lessc='nodejs /opt/lessc/bin/lessc'
 alias xcape=~/libs/xcape/xcape 
 alias xinit=~/.xinitrc
-alias we='workon hq36 && source venv'
+alias we='workon hq37 && source venv'
 alias de='deactivate && cd ~'
 alias node='nodejs'
 
