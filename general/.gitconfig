@@ -18,25 +18,28 @@
     # remove all branches merged in to HEAD
     trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
-    fetch-master = fetch origin master:master
-
-    # list branches
-    lb = "!git branch | grep -v '\\*' | xargs -n 1 git log -1 --pretty=oneliner"
+    fetch-master = fetch origin master:master  # faster than fetching everything
 
     # LOG SHORTCUTS
     # colors: normal, black, red, green, yellow, blue, magenta, cyan and white
     # attributes: bold, dim, ul, blink and reverse.
 
+    # list branches.  Run `git lb | sort` to see recently touched branches
+    lb = "!git branch | grep -v '\\*' | xargs -n 1 -I %BRANCH git show --no-patch --pretty='%C(magenta)%as %C(cyan)%BRANCH %C(blue)%an %C(yellow)%s %C(reset)' %BRANCH"
+
+    # one-line logs
+    l = log --pretty=oneliner --decorate
+    lnm = log HEAD --pretty=oneliner --not origin/master
+
+    # log showing files changed
     ls = log --stat --graph
     lsn = log --stat HEAD --graph --not
     lsnm = log --stat HEAD --not origin/master --graph
 
+    # log with full diffs
     lp = log -p HEAD
     lpn = log -p HEAD --not
     lpnm = log -p HEAD --not origin/master
-
-    l = log --pretty=oneliner --decorate
-    lnm = log HEAD --pretty=oneliner --not origin/master
 
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base HEAD origin/master"
@@ -53,8 +56,11 @@
 
     stash-show = stash show --format=full
 
+    # Show all of my commits - I usually grep these results by date to see what I worked on
     mine = "!git log --pretty=oneliner --date=iso --reflog | grep Soergel"
+
 [pretty]
+    # change %ad to %as to only show date, not datetime
     cute = "\
 %n\
 %C(magenta)%ad \
