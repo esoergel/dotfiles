@@ -1,8 +1,0 @@
-/*ctags -R -f ./.git/tags --exclude="*.js" --exclude="node_modules*" .*/
-    /*--python-kinds=-i*/
-    /*c  classes*/
-    /*f  functions*/
-    /*m  class members*/
-    /*v  variables*/
-    /*i  imports [off]*/
-
