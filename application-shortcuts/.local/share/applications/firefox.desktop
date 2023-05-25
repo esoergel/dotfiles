@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox!!
+Comment=Browse the World Wide Web
+GenericName=Web Browser
+Keywords=Internet;WWW;Browser;Web;Explorer
+Exec=env MOZ_ENABLE_WAYLAND=1 BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/firefox_firefox.desktop /snap/bin/firefox %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/snap/firefox/1810/default256.png
+Categories=GNOME;GTK;Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
+StartupNotify=true
+X-Desktop-File-Install-Version=0.26
