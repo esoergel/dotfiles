@@ -16,7 +16,8 @@
     us = reset HEAD  # "unstage" - hopefully prevent me from using --hard
 
     # remove all branches merged in to HEAD
-    trim = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    trim = "!git remote prune origin && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    rm-remote-branch = push origin -d
 
     fetch-master = fetch origin master:master  # faster than fetching everything
 
@@ -25,7 +26,7 @@
     # attributes: bold, dim, ul, blink and reverse.
 
     # list branches.  Run `git lb | sort` to see recently touched branches
-    lb = "!git branch | grep -v '\\*' | xargs -n 1 -I %BRANCH git show --no-patch --pretty='%C(magenta)%as %C(cyan)%BRANCH %C(blue)%an %C(yellow)%s %C(reset)' %BRANCH"
+    lb = "!git branch | grep -v '\\*' | xargs -n 1 -I %BRANCH git show --no-patch --pretty='%C(magenta)%as %C(cyan)%BRANCH %C(blue)%an %C(yellow)%s %C(reset)' %BRANCH --color=always"
 
     # one-line logs
     l = log --pretty=oneliner --decorate
@@ -57,7 +58,7 @@
     stash-show = stash show --format=full
 
     # Show all of my commits - I usually grep these results by date to see what I worked on
-    mine = "!git log --pretty=oneliner --date=iso --reflog | grep Soergel"
+    mine = "!git log --pretty=oneliner --date=iso --reflog --color=always | grep Soergel"
 
 [pretty]
     # change %ad to %as to only show date, not datetime

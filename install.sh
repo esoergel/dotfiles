@@ -1,10 +1,9 @@
 #!/bin/bash
 
 sudo apt-get install stow
-stow vi
+# stow vi
 stow general
-stow emacs
-stow terminal
+# stow emacs
 
 if [ true = false ]; then
 
@@ -51,7 +50,8 @@ sudo gem install tmuxinator
 
 sudo npm install -g eslint
 
-sudo pip install neovim virtualenv virtualenvwrapper
+# sudo pip install neovim
+sudo pip install virtualenv virtualenvwrapper
 
 # install xcape
 mkdir -p ~/libs/xcape
@@ -62,7 +62,7 @@ make
 sudo make install
 cd -
 
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+# git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 snap install spotify
 
