@@ -120,10 +120,19 @@ fi
 
 
 # virtualenvwrapper stuff
-export WORKON_HOME=~/virtualenvs
-export PROJECT_HOME=$HOME/web_dev
-alias setvenv='source $WORKON_HOME/setvenv'
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=~/virtualenvs
+# export PROJECT_HOME=$HOME/web_dev
+# alias setvenv='source $WORKON_HOME/setvenv'
+# source /usr/local/bin/virtualenvwrapper.sh
+
+
+# pyenv stuff
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+# Load pyenv-virtualenv automatically by adding
+# eval "$(pyenv virtualenv-init -)"
+
 
 
 # Mechanical Turk
@@ -167,7 +176,7 @@ export PATH="$PATH:~/bin:~/.cabal/bin:"
 
 export XDG_CONFIG_HOME=$HOME/.config
 
-export EDITOR='nvim'
+export EDITOR='vi'
 # alias vim=nvim
 
 alias lessc=/usr/lib/node_modules/less/bin/lessc
@@ -177,8 +186,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # commcare-cloud stuff
 export PATH=$PATH:~/.commcare-cloud/bin:~/virtualenvs/ansible/bin/
-source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
-source ~/.commcare-cloud/load_config.sh
+source ~/commcare-cloud/src/commcare_cloud/.bash_completion
 
 # synclient TapButton1=1 TapButton2=3 TapButton3=2
 

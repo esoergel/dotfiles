@@ -8,4 +8,10 @@ shCore.js
 jquery.js
 select.js
 */lib/*
+lib
 tags
+*/vellum/*
+vellum
+min.js
+*-min.js
+

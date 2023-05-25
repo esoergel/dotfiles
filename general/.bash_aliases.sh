@@ -17,11 +17,14 @@ alias we='workon hq37 && source venv'
 alias de='deactivate && cd ~'
 alias node='nodejs'
 
+alias we='cd ~/commcare-hq && pyenv activate hq && source venv'
+alias de='pyenv deactivate && cd ~'
+
 alias dimagi-gpg="gpg --keyring dimagi.gpg --no-default-keyring"
 
 function hqstart() {
     we &&
-    ./scripts/docker start couch elasticsearch kafka postgres redis
+    ./scripts/docker start couch elasticsearch2 kafka postgres redis
     # formplayer riakcs
 }
 function hqstop() {
@@ -36,15 +39,21 @@ function mouse() {
 }
 
 alias less="less -r"
-alias fab='fab -f ~/.commcare-cloud/repo/fab/fabfile.py'
 
-export PATH=$PATH:~/.commcare-cloud/bin
-source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
+# export PATH=$PATH:~/.commcare-cloud/bin
+source ~/commcare-cloud/src/commcare_cloud/.bash_completion
 function cchq-update() {
-    workon ansible &&
+    cd ~/commcare-cloud &&
+    pyenv activate cchq &&
     update-code &&
+    pip install --upgrade pip &&
     pip install -e . &&
-    source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
+    source ~/commcare-cloud/src/commcare_cloud/.bash_completion
+
+    # workon ansible &&
+    # update-code &&
+    # pip install -e . &&
+    # source ~/.commcare-cloud/repo/src/commcare_cloud/.bash_completion
     # [ -t 1 ] && source ~/init-ansible
 }
 
