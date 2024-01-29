@@ -41,6 +41,9 @@
     lp = log -p HEAD
     lpn = log -p HEAD --not
     lpnm = log -p HEAD --not origin/master
+    # search for a specific string
+    lpS = log --pickaxe-regex -pS
+    lpG = log -pG
 
     current-branch = rev-parse --abbrev-ref HEAD
     last-master-commit = "!git merge-base HEAD origin/master"
@@ -89,7 +92,7 @@
     missingCommitsCheck = error
 [core]
     editor = vim
-    excludesfile = /home/ethan/.gitignore
+    excludesfile = ~/.gitignore
 [push]
     default = current
 [color]
@@ -99,6 +102,8 @@
 [diff]
     tool = vimdiff
     compactionHeuristic = 1
+    colorMoved = default
+    colorMovedWs = ignore-all-space
 [merge]
     tool = vimdiff
 [credential]
