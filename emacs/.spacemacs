@@ -43,6 +43,7 @@ This function should only modify configuration layer settings."
      django
      csv
      html
+     ;; nxml
      ansible
      yaml
      ;; ----------------------------------------------------------------
@@ -270,7 +271,7 @@ It should only modify the values of Spacemacs settings."
                          solarized-light
                          twilight-bright
                          organic-green
-                         zonokai-red
+                         ;; zonokai-red
                          ;; gruvbox
                          ;; brin
                          ;; apropospriate-dark
@@ -295,10 +296,14 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Sauce Code Pro"
-                               :size 10.0
+   dotspacemacs-default-font '("Comic Mono"
+                               :size 12.0
                                :weight normal
                                :width normal)
+   ;; dotspacemacs-default-font '("Sauce Code Pro"
+   ;;                             :size 10.0
+   ;;                             :weight normal
+   ;;                             :width normal)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -612,6 +617,10 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "[n") 'git-gutter+-previous-hunk)
   (define-key evil-normal-state-map (kbd "]n") 'git-gutter+-next-hunk)
 
+  ;; Make helm-ag results buffer (F3) persist - "Enter" opens in another window
+  (with-eval-after-load 'helm-ag
+    (evil-define-key '(evilified) helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump-other-window))
+
   (evil-leader/set-key
    ;; "a" 'helm-do-ag
    "a" 'helm-projectile-ag
@@ -674,13 +683,13 @@ before packages are loaded."
   ;; (require 'pymacs)  ;; For ropemacs, python rope
   ;; (pymacs-load "ropemacs" "rope-")
 
-  ;; (add-hook 'python-mode-hook (lambda ()
-  ;;                               (flycheck-mode 1)
-  ;;                               (semantic-mode 1)
-  ;;                               (setq ;; flycheck-checker 'python-pylint
-  ;;                                     flycheck-checker-error-threshold 900
-  ;;                                     flycheck-python-pylint-executable "pylint"
-  ;;                                     flycheck-pylintrc "~/.pylintrc")))
+  (add-hook 'python-mode-hook (lambda ()
+                                (flycheck-mode 1)
+                                (semantic-mode 1)
+                                (setq ;; flycheck-checker 'python-pylint
+                                      flycheck-checker-error-threshold 900
+                                      flycheck-python-pylint-executable "pylint"
+                                      flycheck-pylintrc "~/.pylintrc")))
 
   ;; (setq markdown-command "/usr/bin/pandoc")
 
@@ -689,7 +698,10 @@ before packages are loaded."
   ;;             (make-local-variable 'js-indent-level)
   ;;             (setq js-indent-level 2)))
 
-  (add-hook 'nxml-mode-hook (lambda() (hs-minor-mode 1)))
+  (add-hook 'nxml-mode-hook (lambda()
+                              (hs-minor-mode 1)
+                              (setq nxml-child-indent 2 nxml-attribute-indent 4)
+                              ))
   (add-to-list 'hs-special-modes-alist
                '(nxml-mode
                  "<!--\\|<[^/>]*[^/]>" ;; regexp for start block
@@ -700,8 +712,15 @@ before packages are loaded."
 
   ;; (setq-default visual-line-fringe-indicators nil)
 
-  ;; ignore .po translations files and others in grep or ag
-  (setq helm-ag-use-grep-ignore-list 1)
+  (setq
+
+   ;; ignore .po translations files and others in grep or ag
+   helm-ag-use-grep-ignore-list 1
+
+   ;; https://emacs.stackexchange.com/questions/17/how-to-scroll-through-all-available-matching-interactive-m-x-commands-using-he
+   helm-move-to-line-cycle-in-source nil
+   )
+
   (eval-after-load 'grep
     '(progn
        (add-to-list 'grep-find-ignored-directories "locale")
@@ -760,7 +779,8 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(github-browse-file ag add-node-modules-path impatient-mode htmlize import-js grizzl js-doc js2-refactor yasnippet multiple-cursors livid-mode nodejs-repl npm-mode prettier-js skewer-mode js2-mode simple-httpd tern web-beautify sql-indent sqlup-mode company-emoji emoji-cheat-sheet-plus gh-md markdown-toc mmm-mode valign vmd-mode blacken code-cells company-anaconda anaconda-mode company counsel-gtags counsel swiper ivy cython-mode dap-mode lsp-docker lsp-treemacs bui yaml ggtags helm-cscope helm-gtags helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms lsp-mode markdown-mode nose pip-requirements pipenv load-env-vars pippel poetry transient py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
+   '(github-browse-file ag add-node-modules-path impatient-mode htmlize import-js grizzl js-doc js2-refactor yasnippet multiple-cursors livid-mode nodejs-repl npm-mode prettier-js skewer-mode js2-mode simple-httpd tern web-beautify sql-indent sqlup-mode company-emoji emoji-cheat-sheet-plus gh-md markdown-toc mmm-mode valign vmd-mode blacken code-cells company-anaconda anaconda-mode company counsel-gtags counsel swiper ivy cython-mode dap-mode lsp-docker lsp-treemacs bui yaml ggtags helm-cscope helm-gtags helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms lsp-mode markdown-mode nose pip-requirements pipenv load-env-vars pippel poetry transient py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+ '(warning-suppress-log-types '((use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

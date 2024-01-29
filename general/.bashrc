@@ -220,7 +220,7 @@ alias dimagi-gpg="gpg --keyring dimagi.gpg --no-default-keyring"
 
 function hqstart() {
     we &&
-    ./scripts/docker start couch elasticsearch2 kafka postgres redis
+    ./scripts/docker start couch elasticsearch5 kafka postgres redis
     # formplayer riakcs
 }
 function hqstop() {
