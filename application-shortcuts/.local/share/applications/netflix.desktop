@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Netflix
-Comment=DRM enabled browser
-Exec=env MOZ_ENABLE_WAYLAND=1 firefox -P DRM --no-remote
-Terminal=false

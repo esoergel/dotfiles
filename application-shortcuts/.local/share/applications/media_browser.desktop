@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Media Browser
+Comment=DRM enabled browser Netflix Prime HBO
+Exec=env MOZ_ENABLE_WAYLAND=1 firefox -P DRM --no-remote
+Terminal=false
+Icon=/home/ethan/.local/share/applications/vintage-camera.png
