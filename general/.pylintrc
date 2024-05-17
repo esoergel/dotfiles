@@ -50,7 +50,6 @@ load-plugins=
 #   R0903 = Too few public methods
 #   C0301 = Line too long
 #   R0913 = Too many arguments
-#   C0103 = Invalid name
 #   R0914 = Too many local variables
 
 # PyLint's module importation is unreliable
@@ -58,11 +57,17 @@ load-plugins=
 #   W0402 = Uses of a deprecated module
 
 # Disabled
-#   W0142 = *args and **kwargs support
-#   W0232 = Class has no __init__ method
 #   C0111 = Missing docstring
+#   C0103 = Invalid name
+#   W0707 =  Consider explicitly re-raising
+#   C0415 = Import outside toplevel
+#   C0209 = consider-using-f-string
+#   R1705 = Unnecessary "else" after "return"
+#   C0201 = consider-iterating-dictionary
+#   R0903 = too-few-public-methods
 
-disable = R0201, W0142, W0232, C0111, C0103
+# disable = C0111, C0103
+disable = C0111, C0103, W0707, C0415, C0209, R1705, C0201, R0903
 
 
 [REPORTS]
@@ -78,7 +83,7 @@ output-format=text
 # files-output=no
 
 # Tells whether to display a full report or only the messages
-reports=yes
+reports=no
 
 # Python expression which should return a note less than 10 (10 is the highest
 # note). You have access to the variables errors warning, statement which
